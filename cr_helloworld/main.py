@@ -55,4 +55,4 @@ def process_file():
         return jsonify({'message': f"Error processing file: {str(e)}"}), 500
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8080)  # Run the Flask app for Cloud Run
+    process_file()  # Run the Flask app for Cloud Run
