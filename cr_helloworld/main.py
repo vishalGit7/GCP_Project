@@ -39,7 +39,7 @@ def process_file():
 
   blobs = bucket.list_blobs()
   for blob in blobs:
-    print(blob)
+    print(f"the filname is blob  {str(blob)}")
     data = blob.download_as_string()
 
   # Print the file content
