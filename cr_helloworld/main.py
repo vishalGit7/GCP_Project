@@ -22,7 +22,7 @@ app = Flask(__name__)
 
 
 @app.route("/")
-def process_file(bucket_name, filename):
+def process_file():
   print("start")
   """Reads a CSV file from GCS and prints the content.
 
@@ -31,21 +31,24 @@ def process_file(bucket_name, filename):
     filename: Name of the CSV file in the bucket.
   """
   # Access environment variables (replace with your own)
+  bucket_name =  os.environ.get('BUCKET_NAME')
 
   # Download the file from GCS
   client = storage.Client()
   bucket = client.get_bucket(bucket_name)
-  blob = bucket.blob(filename)
-  data = blob.download_as_string()
+
+  blobs = bucket.list_blobs()
+  for blob in blobs:
+    data = blob.download_as_string()
 
   # Print the file content
-  print(data.decode('utf-8'))  # Decode bytes to string
+    print(data.decode('utf-8'))  # Decode bytes to string
 
 if __name__ == "__main__":
   
   print("start within main")
   # Replace with environment variables or command line arguments
-  process_file("winged-app-429513-b8_terraform", "username.csv")
+  process_file()
 
 # if __name__ == "__main__":
 #     app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
