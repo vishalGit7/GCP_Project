@@ -26,9 +26,9 @@ def process_file():
   print("start")
   """Reads a CSV file from GCS and prints the content.
 
-  Args:
+    ENV variables:
     bucket_name: Name of the GCS bucket.
-    filename: Name of the CSV file in the bucket.
+
   """
   # Access environment variables (replace with your own)
   bucket_name =  os.environ.get('BUCKET_NAME')
@@ -39,7 +39,7 @@ def process_file():
 
   blobs = bucket.list_blobs()
   for blob in blobs:
-    print(f"the filname is blob  {str(blob)}")
+    print(f"the filname is blob  {str(blob.name)}")
     data = blob.download_as_string()
 
   # Print the file content
