@@ -3,7 +3,7 @@ from flask import Flask, jsonify
 from google.cloud import storage, bigquery
 
 # Configure BigQuery client (replace with your project ID)
-client = bigquery.Client(project='your-project-id')
+# client = bigquery.Client(project='your-project-id')
 
 app = Flask(__name__)
 
@@ -23,27 +23,30 @@ def process_file():
     bucket_name = os.environ.get('BUCKET_NAME')
     dataset_id = os.environ.get('DATASET_ID')
     table_id = os.environ.get('TABLE_ID')
+    print(bucket_name,dataset_id,table_id)
 
     try:
         # Download the file from GCS
-        client = storage.Client()
-        bucket = client.get_bucket(bucket_name)
-
+        gcs_client = storage.Client()
+        bucket = gcs_client.get_bucket(bucket_name)
+        bq_client = bigquery.Client(project='your-project-id')
         blobs = bucket.list_blobs()
         for blob in blobs:
+            print(f"The filename is {str(blob.name)}")
             # Process only the first file (assuming you want to handle one file per request)
             if blob.name.endswith('.csv'):
+                print(f"The filename is {str(blob.name)}")
                 data = blob.download_as_string().decode('utf-8')
                 break
 
         # Load data into BigQuery (use error handling)
 
-        table_ref = client.dataset(dataset_id).table(table_id)
+        table_ref = bq_client.dataset(dataset_id).table(table_id)
         table = bigquery.Table(table_ref)
 
 
-        errors = client.load_table_from_string(data, table, field_delimiter=';').result()  # Adjust delimiter if needed
-
+        errors = bq_client.load_table_from_string(data, table, field_delimiter=';').result()  # Adjust delimiter if needed
+        print(errors)
         # Handle potential errors during loading
         if errors:
             error_string = ', '.join(err['errors'] for err in errors)
