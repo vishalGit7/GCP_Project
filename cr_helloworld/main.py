@@ -19,9 +19,9 @@ def process_file(bucket_name, filename):
   # Print the file content
   print(data.decode('utf-8'))  # Decode bytes to string
 
-if __name__ == "__main__":
-  # Replace with environment variables or command line arguments
-  bucket_name = "your-bucket-name"
-  filename = "your-file.csv"
+# if __name__ == "__main__":
+#   # Replace with environment variables or command line arguments
+#   bucket_name = "your-bucket-name"
+#   filename = "your-file.csv"
 
-  process_file(bucket_name, filename)
+#   process_file(bucket_name, filename)
