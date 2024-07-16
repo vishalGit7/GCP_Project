@@ -1,45 +1,45 @@
 from google.cloud import storage
-import pandas as pd
+from google.cloud import bigquery
 
-def main(request):
-    """
-    Cloud Run function to read CSV files from GCS and print contents.
+import os
 
-    Args:
-        request (flask.Request): The request object.
-        <http://flask.pocoo.org/docs/1.0/api/#incoming-request-data>
+def process_file(filename, dataset_id, table_id):
+  """Reads a CSV file from GCS and loads it to BigQuery table.
 
-    Returns:
-        The response text, or any set of values that can be turned into a
-        Response object using `make_response`
-        <http://flask.pocoo.org/docs/1.0/api/#flask.make_response>.
-    """
+  Args:
+    filename: Name of the CSV file in the bucket (retrieved from environment variable).
+    dataset_id: ID of the BigQuery dataset (retrieved from environment variable).
+    table_id: ID of the BigQuery table (retrieved from environment variable).
+  """
+  # Access environment variables
+  bucket_name = os.environ.get('winged-app-429513-b8_terraform')
 
-    # Get the CSV file name from the request (e.g., from a query parameter)
-    file_name = request.args.get('file')
+  # Download the file from GCS
+  client = storage.Client()
+  bucket = client.get_bucket(bucket_name)
+  blob = bucket.blob(filename)
+  data = blob.download_as_string()
 
-    # Check if a file name was provided
-    if not file_name:
-        return 'Please provide a CSV file name in the request (e.g., ?file=my_data.csv)'
+  # Load data to BigQuery
+  bigquery_client = bigquery.Client()
+  dataset_ref = bigquery_client.dataset(dataset_id)
+  table_ref = dataset_ref.table(table_id)
 
-    # GCS bucket name
-    bucket_name = 'your-gcs-bucket-name'  # Replace with your bucket name
+  load_job = bigquery_client.load_table_from_string(
+      data,
+      table_ref,
+      field_delimiter=",",  # Change this if your delimiter is different
+      skip_leading_rows=1  # Skip header row (optional)
+  )
 
-    # Create a Cloud Storage client
-    storage_client = storage.Client()
+  load_job.result()  # Wait for the load job to complete
 
-    # Get the CSV file from GCS
-    bucket = storage_client.bucket(bucket_name)
-    blob = bucket.blob(file_name)
+if __name__ == "__main__":
+  # Replace with environment variables
+  filename = os.environ.get('username.csv')  # Optional for on-demand execution
+  dataset_id = os.environ.get('winged-app-429513-b8.stage_dataset')
+  table_id = os.environ.get('winged-app-429513-b8.stage_dataset.usernames')
 
-    # Download the CSV file to a string
-    csv_data = blob.download_as_string().decode('utf-8')
+  process_file(filename, dataset_id, table_id)
 
-    # Load the CSV data into a Pandas DataFrame
-    df = pd.read_csv(io.StringIO(csv_data))
-
-    # Print the DataFrame (or process it as needed)
-    print(df)
-
-    # Return a response
-    return 'CSV file processed successfully!'
+  print("Data loaded successfully!")
