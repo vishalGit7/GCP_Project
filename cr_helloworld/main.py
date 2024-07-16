@@ -31,6 +31,7 @@ def process_file(bucket_name, filename):
     filename: Name of the CSV file in the bucket.
   """
   # Access environment variables (replace with your own)
+  print(34)
   bucket_name = os.environ.get('winged-app-429513-b8_terraform')
 
   # Download the file from GCS
@@ -46,7 +47,7 @@ def process_file(bucket_name, filename):
 #   print("start within main")
 #   # Replace with environment variables or command line arguments
 bucket_name = "winged-app-429513-b8_terraform"
-filename = "winged-app-429513-b8_terraform/username.csv"
+filename = "username.csv"
 process_file(bucket_name, filename)
 
 # if __name__ == "__main__":
