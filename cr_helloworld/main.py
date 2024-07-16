@@ -41,12 +41,11 @@ def process_file(bucket_name, filename):
   # Print the file content
   print(data.decode('utf-8'))  # Decode bytes to string
 
-# if __name__ == "__main__":
-#   print("start within main")
-#   # Replace with environment variables or command line arguments
-bucket_name = "winged-app-429513-b8_terraform"
-filename = "username.csv"
-process_file(bucket_name, filename)
+if __name__ == "__main__":
+  
+  print("start within main")
+  # Replace with environment variables or command line arguments
+  process_file("winged-app-429513-b8_terraform", "username.csv")
 
 # if __name__ == "__main__":
 #     app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
