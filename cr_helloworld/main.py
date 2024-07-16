@@ -16,6 +16,7 @@
 import os
 
 from flask import Flask
+from google.cloud import storage
 
 app = Flask(__name__)
 
@@ -29,7 +30,7 @@ def process_file(bucket_name, filename):
     filename: Name of the CSV file in the bucket.
   """
   # Access environment variables (replace with your own)
-  bucket_name = os.environ.get('BUCKET_NAME')
+  bucket_name = os.environ.get('winged-app-429513-b8_terraform')
 
   # Download the file from GCS
   client = storage.Client()
