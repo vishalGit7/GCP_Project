@@ -31,8 +31,6 @@ def process_file(bucket_name, filename):
     filename: Name of the CSV file in the bucket.
   """
   # Access environment variables (replace with your own)
-  print(34)
-  bucket_name = os.environ.get('winged-app-429513-b8_terraform')
 
   # Download the file from GCS
   client = storage.Client()
