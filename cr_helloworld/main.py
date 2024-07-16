@@ -39,10 +39,12 @@ def process_file():
 
   blobs = bucket.list_blobs()
   for blob in blobs:
+    print(blob)
     data = blob.download_as_string()
 
   # Print the file content
     print(data.decode('utf-8'))  # Decode bytes to string
+    return "FILE READ SUCCESSFULL"
 
 if __name__ == "__main__":
   
