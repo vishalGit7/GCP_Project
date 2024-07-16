@@ -6,11 +6,13 @@ app = Flask(__name__)
 @app.route("/", methods=["POST"])
 def process_file():  
         bucket_name = "winged-app-429513-b8_terraform"
+        print("Start")
         storage_client = storage.Client()
         bucket = storage_client.bucket(bucket_name)
 
         blob_list = list(bucket.list_blobs(prefix= prefix))
         for blob in blob_list[1:]:
+            print(blob)
             file_content = blob.download_as_text()
 
         # Print the file content
