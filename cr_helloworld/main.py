@@ -21,7 +21,7 @@ from google.cloud import storage
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route("/",methods = ['POST'])
 def process_file():
   print("start")
   """Reads a CSV file from GCS and prints the content.
