@@ -23,6 +23,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def process_file(bucket_name, filename):
+  print("start")
   """Reads a CSV file from GCS and prints the content.
 
   Args:
@@ -42,10 +43,10 @@ def process_file(bucket_name, filename):
   print(data.decode('utf-8'))  # Decode bytes to string
 
 if __name__ == "__main__":
+  print("start within main")
   # Replace with environment variables or command line arguments
   bucket_name = "winged-app-429513-b8_terraform"
   filename = "winged-app-429513-b8_terraform/username.csv"
-
   process_file(bucket_name, filename)
 
 # if __name__ == "__main__":
