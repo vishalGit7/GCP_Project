@@ -1,32 +1,21 @@
-import re
+import os
+from flask import Flask, request
 from google.cloud import storage
-from google.cloud import bigquery
-from google.cloud.exceptions import NotFound
+app = Flask(__name__)
 
-def hello_gcs(event, context):
-    bq_client = bigquery.Client()
-    bucket = storage.Client().bucket("your-bucket-name")
+@app.route("/", methods=["POST"])
+def process_file():  
+        bucket_name = "winged-app-429513-b8_terraform"
+        storage_client = storage.Client()
+        bucket = storage_client.bucket(bucket_name)
 
-    for blob in bucket.list_blobs(prefix="your-folder-name/"):
-        if ".csv" in blob.name:
-            # Extract the file name for the BigQuery table ID
-            csv_filename = re.findall(r".*/(.*).csv", blob.name)
-            bq_table_id = "your-project.dataset-name." + csv_filename[0]
+        blob_list = list(bucket.list_blobs(prefix= prefix))
+        for blob in blob_list[1:]:
+            file_content = blob.download_as_text()
 
-            try:
-                # Check if the table already exists and skip uploading it
-                bq_client.get_table(bq_table_id)
-                print(f"Table {bq_table_id} already exists. Not uploaded.")
-            except NotFound:
-                # If the table is not found, upload it
-                uri = f"gs://your-bucket-name/{blob.name}"
-                job_config = bigquery.LoadJobConfig(
-                    autodetect=True,
-                    skip_leading_rows=1,
-                    source_format=bigquery.SourceFormat.CSV,
-                )
-                load_job = bq_client.load_table_from_uri(uri, bq_table_id, job_config=job_config)
-                load_job.result()  # Wait for the job to complete
-                print(f"Uploaded file: {blob.name} to table: {bq_table_id}")
+        # Print the file content
+        print(f"File content for {blob}:\n{file_content}")
 
-# This function is triggered by Pub/Sub whenever there is a new file in the GCS bucket
+        return "File content printed successfully!"
+
+# Deploy this Cloud Run service to handle HTTP requests
