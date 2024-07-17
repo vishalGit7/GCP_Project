@@ -42,7 +42,8 @@ def process_file():
                 print(f"The filename is {filename}")
                 try:
                     data = blob.download_as_string().decode('utf-8')
-                    uri = f"gs://{bucket.name}/landing_data/{filename}"              
+                    uri = f"gs://{bucket.name}/landing_data/{filename}"  
+                    print(uri)            
 
         # Load data into BigQuery (use error handling)
                     job_config = bigquery.LoadJobConfig(
