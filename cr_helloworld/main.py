@@ -37,7 +37,7 @@ def process_file():
             if blob.name.endswith('.csv'):
                 print(f"The filename is {str(blob.name)}")
                 data = blob.download_as_string().decode('utf-8')
-                uri = f"gs:/{bucket}/{blob.name}"
+                uri = f"gs://{bucket.name}/{blob.name}"                
                 break
 
         # Load data into BigQuery (use error handling)
