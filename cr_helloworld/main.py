@@ -77,9 +77,11 @@ def process_file():
                 
                 else:
                     print(78)
-                    copy_file_in_gcs(bucket_name,f"landig_data/{filename}",f"archive_data/{filename}")
-                    
+                    if f"landig_data/{filename}".exists():
 
+                        copy_file_in_gcs(bucket_name,f"landig_data/{filename}",f"archive_data/{filename}")
+                    else:
+                        print("source file does not exist")
                     # bucket.blob(blob.name).delete()
                     return jsonify (f"message : File {filename} processed and data loaded to BigQuery successfully! ")
                     
