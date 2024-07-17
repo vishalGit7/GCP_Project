@@ -23,7 +23,9 @@ def process_file():
     bucket_name = os.environ.get('BUCKET_NAME')
     dataset_id = os.environ.get('DATASET_ID')
     table_id = os.environ.get('TABLE_ID')
-    landing_folder_prefix = os.environ.get('LANDING_DATA_PATH')
+    landing_folder_prefix = os.environ.get('LANDING_DATA')
+    error_folder_prefix = os.environ.get('ERROR_DATA')
+    archive_folder_prefix = os.environ.get('ARCHIVE_DATA')
    
 
     try:
@@ -59,12 +61,21 @@ def process_file():
                     )
                     load_job = bq_client.load_table_from_uri(uri, table_id, job_config =job_config)  # Make an API request.
                     load_job.result()
-                    return jsonify({f'message': 'File {blob.name} processed and data loaded to BigQuery successfully! '})
+                    
     
                 except Exception as e:
-
-                    print(f"Error processing file {blob.name}: {str(e)}")
-
+                    
+                    error_folder =  f"error_data/{filename}"
+                    new_blob = bucket.copy_blob(blob.name,bucket.name,error_folder)
+                    blob.name.delete()
+                    return jsonify (f"Error processing file {filename}: {str(e)}")
+                
+                else:
+                    archive_folder = f"archive_data/{filename}"
+                    new_blob = bucket.copy_blob(blob.name,bucket.name,archive_folder)
+                    blob.name.delete()
+                    return jsonify (f"message : File {filename} processed and data loaded to BigQuery successfully! ")
+                    
         
     except Exception as e:
         return jsonify({'message': f"Error processing file: {str(e)}"}), 500
