@@ -31,6 +31,7 @@ def process_file():
         bucket = gcs_client.get_bucket(bucket_name)
         bq_client = bigquery.Client(project='winged-app-429513-b8')
         blobs = bucket.list_blobs(prefix = "winged-app-429513-b8_terraform/landing_data")
+        print(blobs)
         for blob in blobs:
             print(f"The filename is {str(blob.name)}")
             # Process only the first file (assuming you want to handle one file per request)
