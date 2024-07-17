@@ -72,13 +72,13 @@ def process_file():
                 except Exception as e:
                     print(72)  
                     new_blob = bucket.copy_blob(landing_folder,bucket_name,error_folder)
-                    blob.name.delete()
+                    bucket.blob(blob.name).delete()
                     return jsonify (f"Error processing file {filename}: {str(e)}")
                 
                 else:
                     print(78)
                     new_blob = bucket.copy_blob(landing_folder,bucket_name,archive_folder)
-                    blob.name.delete()
+                    bucket.blob(blob.name).delete()
                     return jsonify (f"message : File {filename} processed and data loaded to BigQuery successfully! ")
                     
         
