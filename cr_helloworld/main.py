@@ -36,10 +36,11 @@ def process_file():
         for blob in blobs:
             # Process only the first file (assuming you want to handle one file per request)
             if blob.name.endswith('.csv'):
-                print(f"The filename is {str(blob.name)}")
+                filename =  blob.name.split("/")[-1]
+                print(f"The filename is {filename}")
                 try:
                     data = blob.download_as_string().decode('utf-8')
-                    uri = f"gs://{bucket.name}/{blob.name}"              
+                    uri = f"gs://{bucket.name}/landing_Data/{filename}"              
 
         # Load data into BigQuery (use error handling)
                     job_config = bigquery.LoadJobConfig(
@@ -58,9 +59,10 @@ def process_file():
                     )
                     load_job = bq_client.load_table_from_uri(uri, table_id, job_config =job_config)  # Make an API request.
                     load_job.result()
-                    return jsonify({'message': 'File processed and data loaded to BigQuery successfully!'})
+                    return jsonify({f'message': 'File {blob.name} processed and data loaded to BigQuery successfully! '})
     
                 except Exception as e:
+
                     print(f"Error processing file {blob.name}: {str(e)}")
 
         
