@@ -23,14 +23,14 @@ def process_file():
     bucket_name = os.environ.get('BUCKET_NAME')
     dataset_id = os.environ.get('DATASET_ID')
     table_id = os.environ.get('TABLE_ID')
-    print(bucket_name,dataset_id,table_id)
+   
 
     try:
         # Download the file from GCS
         gcs_client = storage.Client()
         bucket = gcs_client.get_bucket(bucket_name)
         bq_client = bigquery.Client(project='winged-app-429513-b8')
-        blobs = bucket.list_blobs()
+        blobs = bucket.list_blobs(prefix = "winged-app-429513-b8_terraform/landing_data")
         for blob in blobs:
             print(f"The filename is {str(blob.name)}")
             # Process only the first file (assuming you want to handle one file per request)
