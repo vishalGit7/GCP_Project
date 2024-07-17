@@ -37,17 +37,26 @@ def process_file():
             if blob.name.endswith('.csv'):
                 print(f"The filename is {str(blob.name)}")
                 data = blob.download_as_string().decode('utf-8')
-                uri = f"gs://{bucket.name}/{blob.name}"                
+                print(data)
+                uri = f"gs://{bucket.name}/{blob.name}"              
                 break
 
         # Load data into BigQuery (use error handling)
         job_config = bigquery.LoadJobConfig(
-                skip_leading_rows=1,
-        # The source format defaults to CSV, so the line below is optional.
-                source_format=bigquery.SourceFormat.CSV,
-                field_delimiter = ";"
+             source_format = "CSV",
+             field_delimiter = ";",
+             skip_leading_rows = 1,
+             write_disposition = "WRITE_APPEND",
+             schema = [
+                  {"name": "Username", "type": "STRING"},
+                  {"name":"Identifier" , "type": "STRING"},
+                  {"name": "First_name", "type": "STRING"},
+                  {"name": "Last_name", "type": "STRING"},
+                  
+             ]
+             
 )
-        load_job = bq_client.load_table_from_uri(uri, table_id, job_config=job_config)  # Make an API request.
+        load_job = bq_client.load_table_from_uri(uri, table_id, configuration =job_config)  # Make an API request.
 
 
         errors = load_job.result() # Adjust delimiter if needed
