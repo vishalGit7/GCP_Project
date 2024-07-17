@@ -77,9 +77,9 @@ def process_file():
                 
                 else:
                     print(78)
-                    source_blob = bucket.blob(f"{landing_folder_prefix}/{filename}")
-                    destination_blob = bucket.blob(f"{archive_folder_prefix}/{filename}")
-                    bucket.copy_blob(source_blob.decode("utf-8"),destination_blob.decode("utf-8"))
+                    source_blob = bucket.blob((f"{landing_folder_prefix}/{filename}").decode("utf-8"))
+                    destination_blob = bucket.blob((f"{archive_folder_prefix}/{filename}").decode("utf-8"))
+                    bucket.copy_blob(source_blob,destination_blob)
                     
 
                     # bucket.blob(blob.name).delete()
