@@ -63,22 +63,22 @@ def process_file():
                         ]
                         
                     )
-                    print(66)
+
                     load_job = bq_client.load_table_from_uri(uri, table_id, job_config =job_config)  # Make an API request.
                     load_job.result()
-                    print(69)
+
                     
     
                 except Exception as e:
                     print(72)  
                     new_blob = bucket.copy_blob(landing_folder,bucket_name,error_folder)
-                    bucket.blob(blob.name).delete()
+                    # bucket.blob(blob.name).delete()
                     return jsonify (f"Error processing file {filename}: {str(e)}")
                 
                 else:
                     print(78)
                     new_blob = bucket.copy_blob(landing_folder,bucket_name,archive_folder)
-                    bucket.blob(blob.name).delete()
+                    # bucket.blob(blob.name).delete()
                     return jsonify (f"message : File {filename} processed and data loaded to BigQuery successfully! ")
                     
         
