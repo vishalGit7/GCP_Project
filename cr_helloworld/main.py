@@ -5,10 +5,10 @@ from google.cloud import storage, bigquery
 # Configure BigQuery client (replace with your project ID)
 # client = bigquery.Client(project='your-project-id')
 
-app = Flask(__name__)
+# app = Flask(__name__)
 
 
-@app.route("/", methods=['POST','GET'])
+# @app.route("/", methods=['POST','GET'])
 def process_file():
     """Reads a CSV file from GCS, loads it into BigQuery, and returns a success message.
 
@@ -23,6 +23,7 @@ def process_file():
     bucket_name = os.environ.get('BUCKET_NAME')
     dataset_id = os.environ.get('DATASET_ID')
     table_id = os.environ.get('TABLE_ID')
+    landing_folder_prefix = os.environ.get('LANDING_DATA_PATH')
    
 
     try:
@@ -30,7 +31,7 @@ def process_file():
         gcs_client = storage.Client()
         bucket = gcs_client.get_bucket(bucket_name)
         bq_client = bigquery.Client(project='winged-app-429513-b8')
-        blobs = bucket.list_blobs(prefix = "winged-app-429513-b8_terraform/landing_data/")
+        blobs = bucket.list_blobs(prefix = landing_folder_prefix )
         # blobs = bucket.list_blobs(prefix = "winged-app-429513-b8_terraform/landing_data")
         print(blobs)
         for blob in blobs:
