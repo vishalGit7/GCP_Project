@@ -45,8 +45,7 @@ def process_file():
                 print(f"The filename is {filename}")
                 try:
                     data = blob.download_as_string().decode('utf-8')
-                    uri = f"gs://{bucket.name}/landing_data/{filename}"  
-                    print(uri)            
+                    uri = f"gs://{bucket.name}/landing_data/{filename}"              
 
         # Load data into BigQuery (use error handling)
                     job_config = bigquery.LoadJobConfig(
@@ -77,7 +76,8 @@ def process_file():
                 
                 else:
                     print(78)
-                    blob_copy = bucket.copy_blob(bucket.blob(landing_folder),bucket_name,bucket.blob(archive_folder))
+                    source_blob = bucket.blob(blob.name)
+                    blob_copy = bucket.copy_blob(source_blob,bucket_name,f"archive_data/{filename}")
                     # bucket.blob(blob.name).delete()
                     return jsonify (f"message : File {filename} processed and data loaded to BigQuery successfully! ")
                     
