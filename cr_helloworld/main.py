@@ -35,39 +35,35 @@ def process_file():
             print(f"The filename is {str(blob.name)}")
             # Process only the first file (assuming you want to handle one file per request)
             if blob.name.endswith('.csv'):
-                print(f"The filename is {str(blob.name)}")
-                data = blob.download_as_string().decode('utf-8')
-                print(data)
-                uri = f"gs://{bucket.name}/{blob.name}"              
-                break
+                try:
+                    print(f"The filename is {str(blob.name)}")
+                    data = blob.download_as_string().decode('utf-8')
+                    print(data)
+                    uri = f"gs://{bucket.name}/{blob.name}"              
 
         # Load data into BigQuery (use error handling)
-        job_config = bigquery.LoadJobConfig(
-             source_format = "CSV",
-             field_delimiter = ";",
-             skip_leading_rows = 1,
-             write_disposition = "WRITE_APPEND",
-             schema = [
-                  {"name": "Username", "type": "STRING"},
-                  {"name":"Identifier" , "type": "STRING"},
-                  {"name": "First_name", "type": "STRING"},
-                  {"name": "Last_name", "type": "STRING"},
-                  
-             ]
-             
-)
-        load_job = bq_client.load_table_from_uri(uri, table_id, job_config =job_config)  # Make an API request.
+                    job_config = bigquery.LoadJobConfig(
+                        source_format = "CSV",
+                        field_delimiter = ";",
+                        skip_leading_rows = 1,
+                        write_disposition = "WRITE_APPEND",
+                        schema = [
+                            {"name": "Username", "type": "STRING"},
+                            {"name":"Identifier" , "type": "STRING"},
+                            {"name": "First_name", "type": "STRING"},
+                            {"name": "Last_name", "type": "STRING"},
+                            
+                        ]
+                        
+                    )
+                    load_job = bq_client.load_from_uri(uri, table_id, job_config =job_config)  # Make an API request.
+                    load_job.result()
+                    print("data loaded success")
+                except Exception as e:
+                    print(f"Error processing file {blob.name}: {str(e)}")
 
-
-        
-        
-        try:
-            load_job.result()
-            return jsonify({'message': 'File processed and data loaded to BigQuery successfully!'})
-        except Exception as e:
-            # error_string = ', '.join(err['errors'] for err in errors)
-            return jsonify({'message': f"Failed to load data"}), 500
-
+        return jsonify({'message': 'File processed and data loaded to BigQuery successfully!'})
+    
     except Exception as e:
         return jsonify({'message': f"Error processing file: {str(e)}"}), 500
 
