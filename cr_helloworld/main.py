@@ -59,14 +59,14 @@ def process_file():
         load_job = bq_client.load_table_from_uri(uri, table_id, job_config =job_config)  # Make an API request.
 
 
-        errors = load_job.result() # Adjust delimiter if needed
-        print(errors)
-        # Handle potential errors during loading
-        if errors:
-            error_string = ', '.join(err['errors'] for err in errors)
-            return jsonify({'message': f"Failed to load data: {error_string}"}), 500
-
-        return jsonify({'message': 'File processed and data loaded to BigQuery successfully!'})
+        
+        
+        try:
+            load_job.result()
+            return jsonify({'message': 'File processed and data loaded to BigQuery successfully!'})
+        except Exception as e:
+            # error_string = ', '.join(err['errors'] for err in errors)
+            return jsonify({'message': f"Failed to load data"}), 500
 
     except Exception as e:
         return jsonify({'message': f"Error processing file: {str(e)}"}), 500
