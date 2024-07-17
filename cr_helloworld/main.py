@@ -77,9 +77,7 @@ def process_file():
                 
                 else:
                     print(78)
-                    source_blob = bucket.blob((f"{landing_folder_prefix}/{filename}").decode("utf-8"))
-                    destination_blob = bucket.blob((f"{archive_folder_prefix}/{filename}").decode("utf-8"))
-                    bucket.copy_blob(source_blob,destination_blob)
+                    copy_file_in_gcs(bucket_name,f"landig_data/{filename}",f"archive_data/{filename}")
                     
 
                     # bucket.blob(blob.name).delete()
@@ -88,6 +86,27 @@ def process_file():
         
     except Exception as e:
         return jsonify({'message': f"Error processing file: {str(e)}"}), 500
+    
 
+def copy_file_in_gcs(bucket_name, source_blob_path, destination_blob_path):
+  """Copies a file from one folder to another within a GCS bucket.
+
+  Args:
+      bucket_name: The name of the GCS bucket.
+      source_blob_path: The path of the file to copy (including folder).
+      destination_blob_path: The path of the destination (including folder).
+
+  Returns:
+      None
+  """
+
+  client = storage.Client()
+  bucket = client.get_bucket(bucket_name)
+
+  source_blob = bucket.blob(source_blob_path)
+  destination_blob = bucket.blob(destination_blob_path)
+
+  new_blob = bucket.copy_blob(source_blob, destination_blob)
+  print(f"File copied from {source_blob.name} to {new_blob.name}")
 if __name__ == "__main__":
     app.run(debug = True)  # Run the Flask app for Cloud Run
