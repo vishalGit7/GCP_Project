@@ -56,7 +56,7 @@ def process_file():
              ]
              
 )
-        load_job = bq_client.load_table_from_uri(uri, table_id, configuration =job_config)  # Make an API request.
+        load_job = bq_client.load_table_from_uri(uri, table_id, job_config =job_config)  # Make an API request.
 
 
         errors = load_job.result() # Adjust delimiter if needed
