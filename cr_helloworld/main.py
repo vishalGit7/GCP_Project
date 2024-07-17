@@ -77,7 +77,8 @@ def process_file():
                 else:
                     print(78)
                     source_blob = bucket.blob(blob.name)
-                    blob_copy = bucket.copy_blob(source_blob,bucket_name,f"archive_data/{filename}")
+                    destination_blob = bucket.blob(f"archive_data/{filename}")
+                    blob_copy = bucket.copy_blob(source_blob,bucket_name,destination_blob)
                     # bucket.blob(blob.name).delete()
                     return jsonify (f"message : File {filename} processed and data loaded to BigQuery successfully! ")
                     
