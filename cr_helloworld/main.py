@@ -45,7 +45,7 @@ def process_file():
                 skip_leading_rows=1,
         # The source format defaults to CSV, so the line below is optional.
                 source_format=bigquery.SourceFormat.CSV,
-                delimeter = ";"
+                field_delimiter = ";"
 )
         load_job = bq_client.load_table_from_uri(uri, table_id, job_config=job_config)  # Make an API request.
 

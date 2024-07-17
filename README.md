@@ -1,5 +1,7 @@
 # GCP_Project
 This repository contains project built on Google cloud platform
+Reference - https://github.com/GoogleCloudPlatform/cloud-build-samples/blob/main/python-example-flask/requirements.txt
+
 # Copyright 2020 Google, LLC.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
