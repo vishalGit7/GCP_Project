@@ -29,7 +29,7 @@ def process_file():
         # Download the file from GCS
         gcs_client = storage.Client()
         bucket = gcs_client.get_bucket(bucket_name)
-        bq_client = bigquery.Client(project='your-project-id')
+        bq_client = bigquery.Client(project='winged-app-429513-b8')
         blobs = bucket.list_blobs()
         for blob in blobs:
             print(f"The filename is {str(blob.name)}")
