@@ -66,6 +66,8 @@ def process_file():
 
                     load_job = bq_client.load_table_from_uri(uri, table_id, job_config =job_config)  # Make an API request.
                     load_job.result()
+                except Exception as e:
+                    return jsonify (f"message: File {filename} failed to process due to {e}")
 
  
                     # bucket.blob(blob.name).delete()
@@ -75,26 +77,5 @@ def process_file():
     except Exception as e:
         return jsonify({'message': f"Error processing file: {str(e)}"}), 500
     
-
-def copy_file_in_gcs(bucket_name, source_blob_path, destination_blob_path):
-  """Copies a file from one folder to another within a GCS bucket.
-
-  Args:
-      bucket_name: The name of the GCS bucket.
-      source_blob_path: The path of the file to copy (including folder).
-      destination_blob_path: The path of the destination (including folder).
-
-  Returns:
-      None
-  """
-
-  client = storage.Client()
-  bucket = client.get_bucket(bucket_name)
-
-  source_blob = bucket.blob(source_blob_path)
-  destination_blob = bucket.blob(destination_blob_path)
-
-  new_blob = bucket.copy_blob(source_blob, destination_blob)
-  print(f"File copied from {source_blob.name} to {new_blob.name}")
 if __name__ == "__main__":
     app.run(debug = True)  # Run the Flask app for Cloud Run
