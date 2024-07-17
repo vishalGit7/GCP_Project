@@ -77,11 +77,12 @@ def process_file():
                 
                 else:
                     print(78)
-                    if f"landig_data/{filename}".exists():
+                    source_blob_path = "landing_data/user_data.csv"
+                    destination_blob = "archive_data/user_data.csv"
 
-                        copy_file_in_gcs(bucket_name,f"landig_data/{filename}",f"archive_data/{filename}")
-                    else:
-                        print("source file does not exist")
+
+                    copy_file_in_gcs(bucket_name,source_blob_path,destination_blob)
+ 
                     # bucket.blob(blob.name).delete()
                     return jsonify (f"message : File {filename} processed and data loaded to BigQuery successfully! ")
                     
