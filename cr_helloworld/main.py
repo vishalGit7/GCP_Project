@@ -39,9 +39,10 @@ def process_file():
             # Process only the first file (assuming you want to handle one file per request)
             if blob.name.endswith('.csv'):
                 filename =  blob.name.split("/")[-1]
-                landing_folder = f"landing_data/{filename}"
-                error_folder =  f"error_data/{filename}"
-                archive_folder = f"archive_data/{filename}"
+                landing_folder = f"{landing_folder_prefix}/{filename}"
+                error_folder = f"{error_folder_prefix}/{filename}"
+                archive_folder = f"{archive_folder_prefix}/{filename}"
+
                 print(f"The filename is {filename}")
                 try:
                     data = blob.download_as_string().decode('utf-8')
@@ -77,8 +78,9 @@ def process_file():
                 else:
                     print(78)
                     source_blob = bucket.blob(blob.name)
-                    destination_blob = bucket.blob(f"archive_data/{filename}")
-                    blob_copy = bucket.copy_blob(source_blob,bucket_name,destination_blob)
+                    destination_blob = bucket.blob(archive_folder)
+                    bucket.copy_blob(source_blob,destination_blob)
+                    
                     # bucket.blob(blob.name).delete()
                     return jsonify (f"message : File {filename} processed and data loaded to BigQuery successfully! ")
                     
