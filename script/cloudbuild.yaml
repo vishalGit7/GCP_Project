@@ -11,25 +11,6 @@ steps:
 # Push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'asia-south1-docker.pkg.dev/$PROJECT_ID/cr-gcp-to-bq/crgcstobq:$COMMIT_SHA']
-
-# # Deploy container image to Cloud Run
-# - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-#   entrypoint: gcloud
-#   args:
-#     - 'beta'
-#     - 'run'
-#     - 'deploy'
-#     - 'cr-gcs-to-bq'
-#     - '--image'
-#     - 'asia-south1-docker.pkg.dev/$PROJECT_ID/cr-gcp-to-bq/crgcstobq:$COMMIT_SHA'
-#     - '--region'
-#     - 'asia-south1'
-#     - '--platform'
-#     - 'managed'
-#     - '--min-instances'
-#     - '0'
-#     - '--max-instances'
-#     - '2'
-#     - '--allow-unauthenticated'
-# images:
-# - 'asia-south1-docker.pkg.dev/$PROJECT_ID/cr-gcp-to-bq/crgcstobq:$COMMIT_SHA'
+  
+options:
+  logging: CLOUD_LOGGING_ONLY
