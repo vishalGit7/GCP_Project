@@ -24,7 +24,7 @@ jobs:
           echo -e "terraform {
             backend = "gcs" {
               bucket = "winged-app-429513-b8_terraform"
-              prefix = "terraform/"
+              prefix = "cr_gcs_to_bq/"
             }
           }" >> backend.tf
 
