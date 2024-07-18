@@ -5,12 +5,12 @@ steps:
 # Build the container image
 - name: 'gcr.io/cloud-builders/docker'
   dir: 'script'
-  args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/GCP_Project/crgcstobq:$COMMIT_SHA', '.']
+  args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq:$COMMIT_SHA', '.']
 
 
 # Push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/GC_Project/crgcstobq:$COMMIT_SHA']
+  args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq:$COMMIT_SHA']
 
 options:
   logging: CLOUD_LOGGING_ONLY
