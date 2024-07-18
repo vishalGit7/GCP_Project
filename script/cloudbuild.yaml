@@ -6,14 +6,36 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   dir: 'script'
   # args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq:$COMMIT_SHA', '.']
-  args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq1','.']
+  args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq2','.']
 
 
 
 # Push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
   # args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq:$COMMIT_SHA']
-  args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq1']
+  args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq2']
+
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args:
+    - 'beta'
+    - 'run'
+    - 'deploy'
+    - 'crgcstobq2'
+    - '--image'
+    - 'us-east1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq2:$COMMIT_SHA'
+    - '--region'
+    - 'us-central1'
+    - '--platform'
+    - 'managed'
+    - '--min-instances'
+    - '0'
+    - '--max-instances'
+    - '1'
+    - '--allow-unauthenticated'
+images:
+- 'us-east1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq2'
+
 
 
 options:
