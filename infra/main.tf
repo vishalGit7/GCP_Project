@@ -6,7 +6,7 @@ variable "project_id" {
 
 # (Optional) Define a service account for Cloud Build
 resource "google_service_account" "build_sa" {
-  account_id = "cloud-build-sa"
+  account_id = "cloud-build-cr"
   project = var.project_id
 }
 
