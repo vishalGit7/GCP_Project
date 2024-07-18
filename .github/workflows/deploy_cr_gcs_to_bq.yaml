@@ -1,54 +1,65 @@
 name: 'Deploy Cloud Run for GCS TO Bigquery Pipeline'
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:  # Triggered manually using "Run workflow" option
 
 jobs:
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
 
-    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    # Use the Bash shell regardless of runner OS
     defaults:
       run:
         shell: bash
 
     steps:
-    # Checkout the repository to the GitHub Actions runner
-    - name: Checkout
-      uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1   
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
 
-    # Configure Terraform backend with GCS bucket details
       - name: Configure Terraform Backend
         run: |
           echo -e "terraform {
             backend = "gcs" {
-              bucket = "winged-app-429513-b8_terraform"
+              bucket = "your-gcs-bucket-name"  # Replace with your bucket name
               prefix = "cr_gcs_to_bq/"
             }
           }" >> backend.tf
-    
-    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-    working_directory: ./infra
 
-    - name: Terraform Init
-      run: terraform init
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+      working_directory: ./infra
 
-    # Generates an execution plan for Terraform
-    - name: Terraform Plan
-      run: terraform plan
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+      - name: Terraform Init
+        run: terraform init
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
-      # On push to main, build or change infrastructure according to Terraform configuration files
-      # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
-    - name: Terraform Apply
-      run: terraform apply -auto-approve
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+      - name: Terraform Plan
+        run: terraform plan
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+
+      - name: Terraform Apply (**Caution: This applies infrastructure changes!** )
+        run: terraform apply -auto-approve
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+
+  build-and-deploy:
+    name: 'Build and Deploy'
+    needs: terraform  # This job depends on successful Terraform execution
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build and Deploy to Cloud Run
+        uses: google-github-actions/cloud-build@v1
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}  # Service account with deployer role
+          secrets: |
+            GOOGLE_APPLICATION_CREDENTIALS=/etc/credentials/service-account.json
+          cloudbuild_config: cloudbuild.yaml
