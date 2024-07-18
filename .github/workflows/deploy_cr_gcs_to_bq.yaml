@@ -45,7 +45,7 @@ jobs:
         working-directory: ./infra
         run: terraform plan
 
-      - name: Apply Terraform configuration (**Caution: This applies changes!** )
+      - name: Apply Terraform configuration 
         working-directory: ./infra
         # Uncomment to apply changes
         # run: terraform apply -auto-approve
