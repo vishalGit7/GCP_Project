@@ -1,9 +1,6 @@
 name: 'Deploy Cloud Run for GCS TO Bigquery Pipeline'
 
 on:
-  push:
-    branches:
-    - main
   workflow_dispatch:
 
 jobs:
