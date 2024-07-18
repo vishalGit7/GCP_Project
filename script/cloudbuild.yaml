@@ -1,0 +1,50 @@
+#This cloudbuld.yaml is going to build the docker container based on the Dockerfile.
+#This file will be used by cloudbuild.
+
+steps:
+# Build the container image
+- name: 'gcr.io/cloud-builders/docker'
+  dir: 'script'
+  args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq2:$COMMIT_SHA', '.']
+
+
+
+# Push the container image to Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq2:$COMMIT_SHA']
+
+
+
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args:
+    - 'beta'
+    - 'run'
+    - 'deploy'
+    - 'crgcstobq2'
+    - '--image'
+    - 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq2:$COMMIT_SHA'
+    - '--region'
+    - 'us-central1'
+    - '--platform'
+    - 'managed'
+    - '--min-instances'
+    - '0'
+    - '--max-instances'
+    - '1'
+    - '--allow-unauthenticated'
+  env:
+    BUCKET_NAME: " "
+    DATASET_ID: " "
+    TABLE_ID: " "
+    LANDING_DATA: " "
+    ERROR_DATA: " "
+    ARCHIVE_DATA: " "
+
+images:
+- 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq2'
+
+
+
+options:
+  logging: CLOUD_LOGGING_ONLY
