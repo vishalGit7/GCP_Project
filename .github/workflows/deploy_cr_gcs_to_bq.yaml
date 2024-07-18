@@ -20,8 +20,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
 
-      - name: Configure Terraform backend (optional)
-        Uncomment and configure if needed
+      - name: Configure Terraform backend 
         run: |
           echo -e "terraform {
             backend = "gcs" {
