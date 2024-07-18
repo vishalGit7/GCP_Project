@@ -20,14 +20,14 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
 
-      - name: Configure Terraform backend 
-        run: |
-          echo -e "terraform {
-            backend = "gcs" {
-              bucket = "your-gcs-bucket-name"
-              prefix = "terraform/"
-            }
-          }" >> backend.tf
+      # - name: Configure Terraform backend 
+      #   run: |
+      #     echo -e "terraform {
+      #       backend = "gcs" {
+      #         bucket = "your-gcs-bucket-name"
+      #         prefix = "terraform/"
+      #       }
+      #     }" >> backend.tf
 
       - name: Initialize Terraform workspace
         working-directory: ./infra  # Change this if your Terraform code is in a different directory
