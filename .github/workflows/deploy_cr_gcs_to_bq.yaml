@@ -1,8 +1,7 @@
 name: 'Deploy Infrastructure with Terraform'
 
 on:
-  push:  # Trigger on push to any branch (adjust as needed)
-    branches: [ main ]  # Only trigger on pushes to the main branch
+  workflow_dispatch: 
 
 jobs:
   deploy:
