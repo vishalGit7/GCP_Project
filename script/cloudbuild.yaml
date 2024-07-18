@@ -6,7 +6,7 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   dir: 'script'
   args: ['build', '-t', 'asia-south1-docker.pkg.dev/$PROJECT_ID/cr-gcp-to-bq/crgcstobq:$COMMIT_SHA', '.']
-  options:
+options:
     logging: CLOUD_LOGGING_ONLY
 
 # Push the container image to Container Registry
