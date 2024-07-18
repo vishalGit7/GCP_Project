@@ -7,7 +7,6 @@ from google.cloud import storage, bigquery
 
 app = Flask(__name__)
 
-
 @app.route("/", methods=['POST','GET'])
 def process_file():
     """Reads a CSV file from GCS, loads it into BigQuery, and returns a success message.
@@ -56,10 +55,10 @@ def process_file():
                         skip_leading_rows = 1,
                         write_disposition = "WRITE_APPEND",
                         schema = [
-                            {"name": "Username", "type": "STRING"},
-                            {"name":"Identifier" , "type": "STRING"},
-                            {"name": "First_name", "type": "STRING"},
-                            {"name": "Last_name", "type": "STRING"},
+                            {"name": "product_sku", "type": "STRING"},
+                            {"name":"transaction_time" , "type": "TIMESTAMP"},
+                            {"name": "transaction_volume", "type": "INT"},
+                            {"name": "transaction_venue", "type": "STRING"},
                             
                         ]
                         
@@ -77,7 +76,7 @@ def process_file():
                     
         
     except Exception as e:
-        return jsonify({'message': f"Error processingggg file: {str(e)}"}), 500
+        return jsonify({'message': f"Error processing file: {str(e)}"}), 500
     
 if __name__ == "__main__":
     app.run(debug = True)  # Run the Flask app for Cloud Run
