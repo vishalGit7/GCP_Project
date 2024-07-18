@@ -5,11 +5,11 @@ steps:
 # Build the container image
 - name: 'gcr.io/cloud-builders/docker'
   dir: 'script'
-  args: ['build', '-t', 'asia-south1-docker.pkg.dev/$PROJECT_ID/my-docker-images-repo/crgcstobq:$COMMIT_SHA', '.']
+  args: ['build', '-t', 'asia-south1-docker.pkg.dev/$PROJECT_ID/cr-gcp-to-bq/crgcstobq:$COMMIT_SHA', '.']
 
 # Push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'asia-south1-docker.pkg.dev/$PROJECT_ID/my-docker-images-repo/crgcstobq:$COMMIT_SHA']
+  args: ['push', 'asia-south1-docker.pkg.dev/$PROJECT_ID/cr-gcp-to-bq/crgcstobq:$COMMIT_SHA']
 
 # Deploy container image to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -20,7 +20,7 @@ steps:
     - 'deploy'
     - 'cr-gcs-to-bq'
     - '--image'
-    - 'asia-south1-docker.pkg.dev/$PROJECT_ID/my-docker-images-repo/crgcstobq:$COMMIT_SHA'
+    - 'asia-south1-docker.pkg.dev/$PROJECT_ID/cr-gcp-to-bq/crgcstobq:$COMMIT_SHA'
     - '--region'
     - 'asia-south1'
     - '--platform'
@@ -31,4 +31,4 @@ steps:
     - '2'
     - '--allow-unauthenticated'
 images:
-- 'asia-south1-docker.pkg.dev/$PROJECT_ID/my-docker-images-repo/crgcstobq:$COMMIT_SHA'
+- 'asia-south1-docker.pkg.dev/$PROJECT_ID/cr-gcp-to-bq/crgcstobq:$COMMIT_SHA'
