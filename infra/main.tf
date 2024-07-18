@@ -11,7 +11,7 @@ resource "google_service_account" "build_sa" {
 }
 
 resource "google_service_account_iam_member" "storage_access" {
-  role = "roles/storage.admin"  # Replace with the desired role
+  role = "roles/storage.objectCreator"  # Replace with the desired role
   member = "serviceAccount:{{ google_service_account.build_sa.email }}"
   project = var.project_id
 }
