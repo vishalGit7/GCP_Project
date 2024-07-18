@@ -5,15 +5,14 @@ steps:
 # Build the container image
 - name: 'gcr.io/cloud-builders/docker'
   dir: 'script'
-  # args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq:$COMMIT_SHA', '.']
-  args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq2','.']
+  args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq2:$COMMIT_SHA', '.']
 
 
 
 # Push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
-  # args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq:$COMMIT_SHA']
-  args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq2']
+  args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq2:$COMMIT_SHA']
+
 
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
@@ -23,7 +22,7 @@ steps:
     - 'deploy'
     - 'crgcstobq2'
     - '--image'
-    - 'us-east1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq2:$COMMIT_SHA'
+    - 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq2:$COMMIT_SHA'
     - '--region'
     - 'us-central1'
     - '--platform'
@@ -34,7 +33,7 @@ steps:
     - '1'
     - '--allow-unauthenticated'
 images:
-- 'us-east1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq2'
+- 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq2'
 
 
 
