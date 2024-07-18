@@ -1,65 +1,55 @@
-name: 'Deploy Cloud Run for GCS TO Bigquery Pipeline'
+name: 'Deploy Infrastructure with Terraform'
 
 on:
-  workflow_dispatch:  # Triggered manually using "Run workflow" option
+  push:  # Trigger on push to any branch (adjust as needed)
+    branches: [ main ]  # Only trigger on pushes to the main branch
 
 jobs:
-  terraform:
-    name: 'Terraform'
-    runs-on: ubuntu-latest
+  deploy:
+    name: 'Deploy Infrastructure'
+    runs-on: ubuntu-latest  # Run the workflow on an Ubuntu runner
 
-    # Use the Bash shell regardless of runner OS
     defaults:
       run:
-        shell: bash
+        shell: bash  # Use the Bash shell
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
 
-      - name: Configure Terraform Backend
-        run: |
-          echo -e "terraform {
-            backend = "gcs" {
-              bucket = "your-gcs-bucket-name"  # Replace with your bucket name
-              prefix = "cr_gcs_to_bq/"
-            }
-          }" >> backend.tf
+      - name: Configure Terraform backend (optional)
+        # Uncomment and configure if needed
+        # run: |
+        #   echo -e "terraform {
+        #     backend = "gcs" {
+        #       bucket = "your-gcs-bucket-name"
+        #       prefix = "terraform/"
+        #     }
+        #   }" >> backend.tf
 
-      working_directory: ./infra
-
-      - name: Terraform Init
+      - name: Initialize Terraform workspace
+        working-directory: ./infra  # Change this if your Terraform code is in a different directory
         run: terraform init
         env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          TF_VAR_access_key: ${{ secrets.ACCESS_KEY }}  # Access key for backend or other variables
+          TF_VAR_secret_key: ${{ secrets.SECRET_KEY }}  # Secret key for backend or other variables
 
-      - name: Terraform Plan
+      - name: Validate Terraform configuration
+        working-directory: ./infra
+        run: terraform validate
+
+      - name: Run Terraform plan (optional)
+        working-directory: ./infra
         run: terraform plan
+
+      - name: Apply Terraform configuration (**Caution: This applies changes!** )
+        working-directory: ./infra
+        # Uncomment to apply changes
+        # run: terraform apply -auto-approve
         env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          TF_VAR_access_key: ${{ secrets.ACCESS_KEY }}
+          TF_VAR_secret_key: ${{ secrets.SECRET_KEY }}
 
-      - name: Terraform Apply (**Caution: This applies infrastructure changes!** )
-        run: terraform apply -auto-approve
-        env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
-
-  build-and-deploy:
-    name: 'Build and Deploy'
-    needs: terraform  # This job depends on successful Terraform execution
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Build and Deploy to Cloud Run
-        uses: google-github-actions/cloud-build@v1
-        with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}  # Service account with deployer role
-          secrets: |
-            GOOGLE_APPLICATION_CREDENTIALS=/etc/credentials/service-account.json
-          cloudbuild_config: cloudbuild.yaml
