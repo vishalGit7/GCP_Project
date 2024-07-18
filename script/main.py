@@ -28,6 +28,7 @@ def process_file():
     archive_folder_prefix = os.environ.get('ARCHIVE_DATA')
    
 
+
     try:
         # Download the file from GCS
         gcs_client = storage.Client()
