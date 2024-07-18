@@ -48,7 +48,7 @@ jobs:
       - name: Apply Terraform configuration 
         working-directory: ./infra
         # Uncomment to apply changes
-        # run: terraform apply -auto-approve
+        run: terraform apply -auto-approve
         env:
           TF_VAR_access_key: ${{ secrets.ACCESS_KEY }}
           TF_VAR_secret_key: ${{ secrets.SECRET_KEY }}
