@@ -66,7 +66,7 @@ def process_file():
                     )
                     load_job = bq_client.load_table_from_uri(uri, table_id, job_config =job_config)  # Make an API request.
                     load_job.result()
-                    return jsonify (f"message : File {filename} processed and data loaded to BigQuery successfully! ")
+                    return jsonify (f"message  : File {filename} processed and data loaded to BigQuery successfully! ")
                 
                 except Exception as e:
                     return jsonify (f"message: File {filename} failed to process due to {e}")
