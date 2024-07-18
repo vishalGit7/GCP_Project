@@ -1,6 +1,7 @@
 variable "project_id" {
   type = string
-  description = "The Google Cloud project ID"
+  default = "winged-app-429513-b8"
+  description = "Google cloud project id"
 }
 
 # (Optional) Define a service account for Cloud Build
