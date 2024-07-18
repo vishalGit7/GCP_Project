@@ -6,7 +6,7 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   dir: 'script'
   # args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq:$COMMIT_SHA', '.']
-  args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq1']
+  args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq1','.']
 
 
 
