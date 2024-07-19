@@ -20,7 +20,7 @@ resource "google_service_account" "build_sa" {
 
 resource "google_service_account_iam_binding" "sa-role" {
   service_account_id = google_service_account.build_sa.name
-  role = "roles/storage.objectCreator"
+  role = "roles/storage.objectAdmin"
   members = ["serviceAccount: ${ google_service_account.build_sa.email }"]
   depends_on = [ google_service_account.build_sa,google_storage_bucket.gcs-landing-bucket ]
 }
