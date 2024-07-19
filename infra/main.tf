@@ -113,6 +113,8 @@ resource "google_cloudbuild_trigger" "service-account-trigger" {
 }
 
 resource "google_cloudbuild_trigger" "react-trigger" {
+  location = "us-central1"
+  name     = "include-build-logs-trigger"
   github {
     owner = "vbadole03@gmail.com"
     name  = "VishalGit7/GCP_Project" 
