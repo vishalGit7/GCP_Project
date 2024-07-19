@@ -18,12 +18,10 @@ resource "google_service_account" "build_sa" {
   project = var.project_id
 }
 
-resource "google_cloud_iam_binding" "sa-role" {
+resource "google_service_account_iam_binding" "sa-role" {
   service_account_id = google_service_account.build_sa.name
   role = "roles/storage.objectCreator"
   members = ["serviceAccount: ${ google_service_account.build_sa.email }"]
-  project = var.project_id
-  resource = google_storage_bucke.gcs-landing-bucket.name 
   depends_on = [ google_service_account.build_sa,google_storage_bucket.gcs-landing-bucket ]
 }
 
