@@ -40,6 +40,7 @@ jobs:
           timeout_seconds: 300
           # Environment variables (optional)
           env_vars: key=avlue
+          allow-unauthenticated: true
           # Secrets (optional, requires Secret Manager setup)
           # secrets: SECRET_NAME1=KEY1,SECRET_NAME2=KEY2
           # Labels (optional)
