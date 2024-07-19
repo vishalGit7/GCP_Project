@@ -24,7 +24,7 @@ jobs:
         run: gcloud docker --quiet push gcr.io/$PROJECT_ID/cr-gcs-to-bq:latest
 
       - name: Deploy to Cloud Run (using source or built image)
-        uses: google-github-actions/deploy-cloudrun@v0.2.3
+        uses: google-github-actions/deploy-cloudrun@v0
         with:
           service: cr-gcs-to-bq  # Required
           source: ./script/
