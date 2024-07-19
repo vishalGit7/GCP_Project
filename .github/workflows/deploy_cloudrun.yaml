@@ -30,7 +30,7 @@ jobs:
         uses: google-github-actions/deploy-cloudrun@v1
         with:
           service: cr-gcs-to-bq  # Required
-          source: ./script/
+          source: ./scrit/
 
           platform: managed
           region:  us-central1
