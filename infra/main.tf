@@ -113,24 +113,15 @@ resource "google_cloudbuild_trigger" "service-account-trigger" {
 }
 
 resource "google_cloudbuild_trigger" "react-trigger" {
-  //Source section
   github {
     owner = "vbadole03@gmail.com"
-    name  = "VishalGit7/GCP_Project"
-    //Events section  
+    name  = "VishalGit7/GCP_Project" 
     push {
        branch = "cr_nihilient"
-       //or
-       //tag    = "production"
       }
   }
   ignored_files = [".gitignore"]
-//Configuration section
- // build config file
+
  filename = "./script/cloudbuild.yaml"
  
-  substitutions = {
-    key1= "value1"
-    key2 = "value2"
-  }
 }
