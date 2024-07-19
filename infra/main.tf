@@ -13,7 +13,7 @@ resource "google_service_account" "build_sa" {
 resource "google_service_account_iam_member" "admin-account-iam" {
   service_account_id = google_service_account.build_sa.name
   role               = "roles/storage.objectCreator"
-  member            = "serviceAccount:{{ google_service_account.build_sa.email }}"
+  member            = "serviceAccount: google_service_account.build_sa.email "
 
 depends_on = [ google_service_account.build_sa ]
 }
