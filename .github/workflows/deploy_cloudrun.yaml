@@ -8,22 +8,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: checkout
+        uses: actions/checkout@v3
 
-      - name: Set up Google Cloud authentication
+      - name: Google Auth
+        id: auth
         uses: google-github-actions/setup-gcloud@v1
         with:
-          service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }}
+          credentials_json : ${{ secrets.GOOGLE_CREDENTIALS }}
           project_id: "winged-app-429513-b8"
 
-      - name: Build container image (if not using source)
-        # Replace with your container build command if not using source
-        run: docker build -t gcr.io/$PROJECT_ID/cr-gcs-to-bq:latest .
+      # - name: Build container image (if not using source)
+      #   # Replace with your container build command if not using source
+      #   run: docker build -t gcr.io/$PROJECT_ID/cr-gcs-to-bq:latest .
 
-      - name: (Optional) Push image to Google Container Registry (if not using source)
-        run: gcloud docker --quiet push gcr.io/$PROJECT_ID/cr-gcs-to-bq:latest
+      # - name: (Optional) Push image to Google Container Registry (if not using source)
+      #   run: gcloud docker --quiet push gcr.io/$PROJECT_ID/cr-gcs-to-bq:latest
 
       - name: Deploy to Cloud Run (using source or built image)
+        id: deploy
         uses: google-github-actions/deploy-cloudrun@v0
         with:
           service: cr-gcs-to-bq  # Required
