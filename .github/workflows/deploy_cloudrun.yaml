@@ -1,0 +1,44 @@
+name: Deploy to Cloud Run
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Google Cloud authentication
+        uses: google-github-actions/setup-gcloud@v0.3.0
+        with:
+          service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }}
+          project_id: "winged-app-429513-b8"
+
+      - name: Build container image (if not using source)
+        # Replace with your container build command if not using source
+        run: docker build -t gcr.io/$PROJECT_ID/cr-gcs-to-bq:latest .
+
+      - name: (Optional) Push image to Google Container Registry (if not using source)
+        run: gcloud docker --quiet push gcr.io/$PROJECT_ID/cr-gcs-to-bq:latest
+
+      - name: Deploy to Cloud Run (using source or built image)
+        uses: google-github-actions/deploy-cloudrun@v0.2.3
+        with:
+          service: cr-gcs-to-bq  # Required
+          source: ./script/
+
+          platform: managed
+          region:  us-central1
+          minimum_scaling: 0
+          maximum_scaling: 2
+          concurrency: 85
+          timeout_seconds: 300
+          # Environment variables (optional)
+          env_vars: key=avlue
+          # Secrets (optional, requires Secret Manager setup)
+          # secrets: SECRET_NAME1=KEY1,SECRET_NAME2=KEY2
+          # Labels (optional)
+
+          
