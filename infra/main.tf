@@ -18,10 +18,16 @@ resource "google_service_account" "build_sa" {
   project = var.project_id
 }
 
-resource "google_service_account_iam_binding" "sa-role" {
-  service_account_id = google_service_account.build_sa.name
-  role = "roles/iam.serviceAccountUser"
-  members = ["serviceAccount: ${ google_service_account.build_sa.email }"]
-  depends_on = [ google_service_account.build_sa,google_storage_bucket.gcs-landing-bucket ]
-}
+# resource "google_service_account_iam_binding" "sa-role" {
+#   service_account_id = google_service_account.build_sa.name
+#   role = "roles/iam.serviceAccountUser"
+#   members = ["serviceAccount: ${ google_service_account.build_sa.email }"]
+#   depends_on = [ google_service_account.build_sa,google_storage_bucket.gcs-landing-bucket ]
+# }
 
+resource "google_project_iam_member" "service_account_role" {
+  project = var.project_id
+  role    = "roles/storage.admin"  # Replace with the desired role
+  member  = "serviceAccount:${google_service_account.build_sa.email}"
+  depends_on = [ google_service_account.build_sa]
+}
