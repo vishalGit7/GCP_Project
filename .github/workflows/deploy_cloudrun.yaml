@@ -13,7 +13,7 @@ jobs:
 
       - name: Google Auth
         id: auth
-        uses: google-github-actions/setup-gcloud@v1
+        uses: google-github-actions/auth@v1
         with:
           credentials_json : '${{ secrets.GOOGLE_CREDENTIALS }}'
           project_id: "winged-app-429513-b8"
