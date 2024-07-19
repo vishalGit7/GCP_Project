@@ -42,10 +42,7 @@ resource "google_bigquery_dataset" "dataset" {
    labels = {
     env = "dev"
   }
-  access {
-    role          = "WRITER"
-    user_by_email = google_service_account.build_sa.email
-  }
+
 }
 
 resource "google_bigquery_table" "landing_table" {
