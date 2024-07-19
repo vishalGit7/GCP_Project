@@ -49,7 +49,7 @@ resource "google_bigquery_dataset" "dataset" {
 }
 
 resource "google_bigquery_table" "landing_table" {
-  dataset_id = google_bigquery_dataset.default.dataset_id
+  dataset_id = google_bigquery_dataset.dataset.dataset_id
   table_id   = "landing_table"
 
   time_partitioning {
