@@ -34,8 +34,8 @@ steps:
     - '1'
     - '--allow-unauthenticated'
     - '--service-account'
-    # - $SERVICE_ACCOUNT_EMAIL'
-    - 'sa-terraform@winged-app-429513-b8.iam.gserviceaccount.com'
+    - $SERVICE_ACCOUNT_EMAIL'
+    # - 'sa-terraform@winged-app-429513-b8.iam.gserviceaccount.com'
   # env:
   #   BUCKET_NAME: " "
   #   DATASET_ID: " "
