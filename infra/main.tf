@@ -50,11 +50,19 @@ resource "google_project_iam_member" "artifactrole" {
   member = "serviceAccount:${google_service_account.build_sa.email}"
   depends_on = [google_service_account.build_sa]
 }
+
+resource "google_project_iam_member" "iamrole" {
+  project = var.project_id
+  role = "roles/iam.serviceAccountUser"  
+  member = "serviceAccount:${google_service_account.build_sa.email}"
+  depends_on = [google_service_account.build_sa]
+}
+
 # data "google_compute_default_service_account" "default" {
 # }
 # resource "google_service_account_iam_member" "impersonation_role" {
 #   service_account_id = google_service_account.build_sa.name
-#   role = "roles/iam.serviceAccountUser"
+#   role = 
 #   member = "serviceAccount:${data.google_compute_default_service_account.default}"
 #   depends_on = [google_service_account.build_sa]
 # }
