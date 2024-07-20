@@ -23,8 +23,7 @@ def process_file():
     dataset_id = os.environ.get('DATASET_ID')
     table_id = os.environ.get('TABLE_ID')
     landing_folder_prefix = os.environ.get('LANDING_DATA')
-    error_folder_prefix = os.environ.get('ERROR_DATA')
-    archive_folder_prefix = os.environ.get('ARCHIVE_DATA')
+
    
 
 
@@ -40,8 +39,6 @@ def process_file():
             if blob.name.endswith('.csv'):
                 filename =  blob.name.split("/")[-1]
                 landing_folder = f"{landing_folder_prefix}/{filename}"
-                error_folder = f"{error_folder_prefix}/{filename}"
-                archive_folder = f"{archive_folder_prefix}/{filename}"
 
                 print(f"The filename is {filename}")
                 try:

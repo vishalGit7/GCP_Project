@@ -35,14 +35,11 @@ steps:
     - '--allow-unauthenticated'
     - '--service-account'
     - $SERVICE_ACCOUNT_EMAIL
-    # - 'sa-terraform@winged-app-429513-b8.iam.gserviceaccount.com'
-  # env:
-  #   BUCKET_NAME: " "
-  #   DATASET_ID: " "
-  #   TABLE_ID: " "
-  #   LANDING_DATA: " "
-  #   ERROR_DATA: " "
-  #   ARCHIVE_DATA: " "
+  env:
+    BUCKET_NAME: "fileladingbucket_winged-app-429513-b8"
+    DATASET_ID: "winged-app-429513-b8.landing_dataset"
+    TABLE_ID: "winged-app-429513-b8.landing_dataset.landing_table"
+    LANDING_DATA: "landing_data/"
 
 images:
 - 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq'

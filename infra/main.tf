@@ -137,6 +137,10 @@ resource "google_cloudbuild_trigger" "github_trigger" {
     }
   }
   service_account = google_service_account.build_sa.id
-  depends_on = [ google_project_iam_binding.service_account_role ]
+  depends_on = [ google_project_iam_binding.service_account_role,google_bigquery_dataset.dataset,
+                 google_bigquery_table.landing_table,google_storage_bucket.gcs-landing-bucket,
+                 google_storage_bucket_object.empty_folder,google_project_iam_binding.service_account_role,
+                 google_project_iam_member.artifactrole,google_project_iam_member.cloud_run_role,
+                 google_service_account.build_sa ]
 
 }
