@@ -96,7 +96,7 @@ resource "google_cloudbuild_trigger" "filename-trigger" {
     repo_name   = "VishalGit7/GCP_PRoject"
   }
 
-  filename = "./script/cloudbuild.yaml"
+  filename = "cloudbuild.yaml"
 }
 
 # resource "google_cloudbuild_trigger" "service-account-trigger" {
@@ -126,6 +126,6 @@ resource "google_cloudbuild_trigger" "react-trigger" {
   }
   ignored_files = [".gitignore"]
 
- filename = "./script/cloudbuild.yaml"
+ filename = "/cloudbuild.yaml"
  
 }
