@@ -33,6 +33,8 @@ steps:
     - '--max-instances'
     - '1'
     - '--allow-unauthenticated'
+    - '--service-account'
+    - '$SERVICE_ACCOUNT'
   # env:
   #   BUCKET_NAME: " "
   #   DATASET_ID: " "
