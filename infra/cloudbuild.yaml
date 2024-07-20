@@ -21,7 +21,7 @@ steps:
     - 'beta'
     - 'run'
     - 'deploy'
-    - 'crgcstobq2'
+    - 'crgcstobq'
     - '--image'
     - 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq:$COMMIT_SHA'
     - '--region'
