@@ -128,7 +128,6 @@ resource "google_cloudbuild_trigger" "github_trigger" {
       branch = "^cr_nihilient$"  # Trigger on pushes to this branch (replace)
     }
   }
-  service_account = google_service_account.build_sa.id
   depends_on = [ google_project_iam_binding.service_account_role ]
 
 }
