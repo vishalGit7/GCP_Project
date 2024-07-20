@@ -36,7 +36,7 @@ resource "google_service_account_iam_binding" "service_account_role" {
   ])
   role    = each.key
 
-  members  = "serviceAccount:${google_service_account.build_sa.email}"
+  members  = ["serviceAccount:${google_service_account.build_sa.email}"]
   depends_on = [ google_service_account.build_sa]
 }
 
