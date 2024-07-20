@@ -33,13 +33,13 @@ steps:
     - '--max-instances'
     - '1'
     - '--allow-unauthenticated'
-  env:
-    BUCKET_NAME: " "
-    DATASET_ID: " "
-    TABLE_ID: " "
-    LANDING_DATA: " "
-    ERROR_DATA: " "
-    ARCHIVE_DATA: " "
+  # env:
+  #   BUCKET_NAME: " "
+  #   DATASET_ID: " "
+  #   TABLE_ID: " "
+  #   LANDING_DATA: " "
+  #   ERROR_DATA: " "
+  #   ARCHIVE_DATA: " "
 
 images:
 - 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq2'
