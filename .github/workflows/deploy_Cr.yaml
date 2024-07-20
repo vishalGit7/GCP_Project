@@ -26,4 +26,4 @@ jobs:
         uses: 'google-github-actions/setup-gcloud@v1'
 
       - name: Deploy
-        run: gcloud builds submit --config ./infra/cloudbuild.yml
+        run: gcloud builds submit --config ./infra/cloudbuild.yaml
