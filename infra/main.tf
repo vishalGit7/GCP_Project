@@ -25,7 +25,7 @@ resource "google_service_account" "build_sa" {
   project = var.project_id
 }
 
-resource "google_service_account_iam_member" "service_account_role" {
+resource "google_service_account_iam_binding" "service_account_role" {
     service_account_id = google_service_account.build_sa.name
   for_each = toset([
         "roles/storage.admin",
@@ -36,7 +36,7 @@ resource "google_service_account_iam_member" "service_account_role" {
   ])
   role    = each.key
 
-  member  = "serviceAccount:${google_service_account.build_sa.email}"
+  members  = "serviceAccount:${google_service_account.build_sa.email}"
   depends_on = [ google_service_account.build_sa]
 }
 
