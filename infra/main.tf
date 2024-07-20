@@ -98,32 +98,34 @@ depends_on = [ google_bigquery_dataset.dataset ]
 
 #   filename = "./script/cloudbuild.yaml"
 # }
-resource "google_cloudbuild_trigger" "service-account-trigger" {
-  trigger_template {
-    branch_name = "cr_nihilient"
-    repo_name   = "VishalGit7/GCP_PRoject"
-  }
 
-  service_account = google_service_account.build_sa.id
-  filename        = "./script/cloudbuild.yaml"
-#   depends_on = [
-#     google_project_iam_member.act_as,
-#     google_project_iam_member.logs_writer
-#   ]
-}
+# resource "google_cloudbuild_trigger" "service-account-trigger" {
+#   trigger_template {
+#     branch_name = "cr_nihilient"
+#     repo_name   = "VishalGit7/GCP_PRoject"
+#   }
 
-resource "google_cloudbuild_trigger" "react-trigger" {
-  location = "us-central1"
-  name     = "include-build-logs-trigger"
-  github {
-    owner = "vbadole03@gmail.com"
-    name  = "VishalGit7/GCP_Project" 
-    push {
-       branch = "cr_nihilient"
-      }
-  }
-  ignored_files = [".gitignore"]
+#   service_account = google_service_account.build_sa.id
+#   filename        = "./script/cloudbuild.yaml"
+# #   depends_on = [
+# #     google_project_iam_member.act_as,
+# #     google_project_iam_member.logs_writer
 
- filename = "./script/cloudbuild.yaml"
+# #   ]
+# }
+
+# resource "google_cloudbuild_trigger" "react-trigger" {
+#   location = "us-central1"
+#   name     = "include-build-logs-trigger"
+#   github {
+#     owner = "vbadole03@gmail.com"
+#     name  = "VishalGit7/GCP_Project" 
+#     push {
+#        branch = "cr_nihilient"
+#       }
+#   }
+#   ignored_files = [".gitignore"]
+
+#  filename = "./script/cloudbuild.yaml"
  
-}
+# }
