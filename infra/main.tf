@@ -91,19 +91,20 @@ depends_on = [ google_bigquery_dataset.dataset ]
 resource "google_cloudbuild_trigger" "github_trigger" {
   name = "my-cloudbuild-trigger"
   location = "us-central1"  # Adjust region if needed
-
+  filename = "cloudbuild.yaml"
   # Configure GitHub source
   github {
     owner = "VishalGit7"  # Your GitHub username
     name  = "GCP_Project"      # Replace with your actual repository name
     
     push {
-      branch = "cr_nihilient"  # Trigger on pushes to this branch (replace)
+      branch = "^cr_nihilient$"  # Trigger on pushes to this branch (replace)
     }
   }
+  service_account = google_service_account.build_sa.id
 
   # Optional: Specify build configuration file (replace with your path)
-  filename = "./cloudbuild.yaml"
+  
 
   # Optional: Ignore specific files during build
   # ignored_files = [".gitignore"]
