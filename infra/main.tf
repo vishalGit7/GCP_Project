@@ -89,7 +89,7 @@ depends_on = [ google_bigquery_dataset.dataset ]
 }
 
 resource "google_cloudbuild_trigger" "filename-trigger" {
-  location = "us-central1"
+
 
   trigger_template {
     branch_name = "cr_nihilient"
