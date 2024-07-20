@@ -114,18 +114,18 @@ resource "google_cloudbuild_trigger" "filename-trigger" {
 # #   ]
 # }
 
-# resource "google_cloudbuild_trigger" "react-trigger" {
-#   location = "us-central1"
-#   name     = "include-build-logs-trigger"
-#   github {
-#     owner = "vbadole03@gmail.com"
-#     name  = "VishalGit7/GCP_Project" 
-#     push {
-#        branch = "cr_nihilient"
-#       }
-#   }
-#   ignored_files = [".gitignore"]
+resource "google_cloudbuild_trigger" "react-trigger" {
+  location = "us-central1"
+  name     = "include-build-logs-trigger"
+  github {
+    owner = "vbadole03@gmail.com"
+    name  = "VishalGit7/GCP_Project" 
+    push {
+       branch = "cr_nihilient"
+      }
+  }
+  ignored_files = [".gitignore"]
 
-#  filename = "./script/cloudbuild.yaml"
+ filename = "./script/cloudbuild.yaml"
  
-# }
+}
