@@ -34,7 +34,7 @@ steps:
     - '1'
     - '--allow-unauthenticated'
     - '--service-account'
-    - '$SERVICE_ACCOUNT'
+    - $SERVICE_ACCOUNT_EMAIL'
   # env:
   #   BUCKET_NAME: " "
   #   DATASET_ID: " "
