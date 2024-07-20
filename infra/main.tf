@@ -29,9 +29,8 @@ resource "google_project_iam_binding" "service_account_role" {
    project = var.project_id
   for_each = toset([
         "roles/storage.admin",
-        "roles/logging.logWriter",
-        "roles/artifactregistry.repositories.uploadArtifacts"
-
+        "roles/logging.logWriter"
+        
   ])
   role    = each.key
 
@@ -40,7 +39,11 @@ resource "google_project_iam_binding" "service_account_role" {
 }
 resource "google_project_iam_member" "cloud_run_role" {
   project = var.project_id
-  role = "roles/run.invoker"  # Example role for basic deployment
+  for_each = toset(["roles/artifactregistry.repositories.uploadArtifacts","roles/run.invoker"
+
+])
+  role =  each.key
+
   member = "serviceAccount:${google_service_account.build_sa.email}"
   depends_on = [google_service_account.build_sa]
 }
