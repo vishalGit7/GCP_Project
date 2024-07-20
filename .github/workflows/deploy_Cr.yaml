@@ -1,9 +1,7 @@
 name: Cloud Run Deploy workflow in develop branch
 
 on:
-  push:
-    branches:
-      - 'main'
+   workflow_dispatch:
 
 jobs:
   deploy:
