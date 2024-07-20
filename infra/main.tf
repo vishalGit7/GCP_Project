@@ -126,7 +126,7 @@ depends_on = [ google_bigquery_dataset.dataset ]
 resource "google_cloudbuild_trigger" "github_trigger" {
   name = "my-cloudbuild-trigger"
   location = "us-central1"  # Adjust region if needed
-  filename = "./infra/cloudbuild.yaml"
+  filename = "infra/cloudbuild.yaml"
   # Configure GitHub source
   github {
     owner = "vishalGit7"  # Your GitHub username
