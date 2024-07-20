@@ -88,16 +88,16 @@ depends_on = [ google_bigquery_dataset.dataset ]
 
 }
 
-# resource "google_cloudbuild_trigger" "filename-trigger" {
-#   location = "us-central1"
+resource "google_cloudbuild_trigger" "filename-trigger" {
+  location = "us-central1"
 
-#   trigger_template {
-#     branch_name = "cr_nihilient"
-#     repo_name   = "VishalGit7/GCP_PRoject"
-#   }
+  trigger_template {
+    branch_name = "cr_nihilient"
+    repo_name   = "VishalGit7/GCP_PRoject"
+  }
 
-#   filename = "./script/cloudbuild.yaml"
-# }
+  filename = "./script/cloudbuild.yaml"
+}
 
 # resource "google_cloudbuild_trigger" "service-account-trigger" {
 #   trigger_template {
