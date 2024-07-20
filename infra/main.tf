@@ -27,7 +27,7 @@ resource "google_service_account" "build_sa" {
 
 resource "google_project_iam_member" "service_account_role" {
   project = var.project_id
-  role    = "roles/storage.admin"  # Replace with the desired role
+  role    = ["roles/storage.admin","roles/logging.logWriter"]  # Replace with the desired role
   member  = "serviceAccount:${google_service_account.build_sa.email}"
   depends_on = [ google_service_account.build_sa]
 }
