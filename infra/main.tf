@@ -46,7 +46,7 @@ resource "google_project_iam_member" "cloud_run_role" {
 }
 resource "google_project_iam_member" "artifactrole" {
   project = var.project_id
-  role = "roles/artifactregistry.repositories.uploadArtifacts"  # Example role for basic deployment
+  role = "roles/artifactregistry.admin"  # Example role for basic deployment
   member = "serviceAccount:${google_service_account.build_sa.email}"
   depends_on = [google_service_account.build_sa]
 }
