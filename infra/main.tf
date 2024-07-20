@@ -94,7 +94,7 @@ resource "google_cloudbuild_trigger" "github_trigger" {
   filename = "cloudbuild.yaml"
   # Configure GitHub source
   github {
-    owner = "VishalGit7"  # Your GitHub username
+    owner = "vishalGit7"  # Your GitHub username
     name  = "GCP_Project"      # Replace with your actual repository name
     
     push {
