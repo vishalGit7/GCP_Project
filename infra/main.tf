@@ -119,7 +119,7 @@ resource "google_cloudbuild_trigger" "react-trigger" {
   name     = "include-build-logs-trigger"
   github {
     owner = "vbadole03@gmail.com"
-    name  = "VishalGit7/GCP_Project" 
+    name  = "GCP_Project" 
     push {
        branch = "cr_nihilient"
       }
