@@ -39,7 +39,7 @@ resource "google_project_iam_binding" "service_account_role" {
 }
 resource "google_project_iam_member" "cloud_run_role" {
   project = var.project_id
-  role = "roles/run.invoker"
+  role = "roles/run.sourceDeveloper"
 
   member = "serviceAccount:${google_service_account.build_sa.email}"
   depends_on = [google_service_account.build_sa]
