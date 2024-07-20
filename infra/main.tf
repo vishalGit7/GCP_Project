@@ -88,44 +88,23 @@ depends_on = [ google_bigquery_dataset.dataset ]
 
 }
 
-resource "google_cloudbuild_trigger" "filename-trigger" {
+resource "google_cloudbuild_trigger" "github_trigger" {
+  name = "my-cloudbuild-trigger"
+  location = "us-central1"  # Adjust region if needed
 
-
-  trigger_template {
-    branch_name = "cr_nihilient"
-    repo_name   = "VishalGit7/GCP_PRoject"
-  }
-
-  filename = "cloudbuild.yaml"
-}
-
-# resource "google_cloudbuild_trigger" "service-account-trigger" {
-#   trigger_template {
-#     branch_name = "cr_nihilient"
-#     repo_name   = "VishalGit7/GCP_PRoject"
-#   }
-
-#   service_account = google_service_account.build_sa.id
-#   filename        = "./script/cloudbuild.yaml"
-# #   depends_on = [
-# #     google_project_iam_member.act_as,
-# #     google_project_iam_member.logs_writer
-
-# #   ]
-# }
-
-resource "google_cloudbuild_trigger" "react-trigger" {
-  location = "us-central1"
-  name     = "include-build-logs-trigger"
+  # Configure GitHub source
   github {
-    owner = "vbadole03@gmail.com"
-    name  = "GCP_Project" 
+    owner = "VishalGit7"  # Your GitHub username
+    name  = "GCP_Project"      # Replace with your actual repository name
+    
     push {
-       branch = "cr_nihilient"
-      }
+      branch = "cr_nihilient"  # Trigger on pushes to this branch (replace)
+    }
   }
-  ignored_files = [".gitignore"]
 
- filename = "/cloudbuild.yaml"
- 
+  # Optional: Specify build configuration file (replace with your path)
+  filename = "./cloudbuild.yaml"
+
+  # Optional: Ignore specific files during build
+  # ignored_files = [".gitignore"]
 }
