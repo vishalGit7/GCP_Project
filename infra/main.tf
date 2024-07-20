@@ -30,8 +30,7 @@ resource "google_project_iam_binding" "service_account_role" {
   for_each = toset([
         "roles/storage.admin",
         "roles/logging.logWriter",
-        "roles/artifactregistry.repositories.uploadArtifacts",
-        "roles/run.deployer"
+        "roles/artifactregistry.repositories.uploadArtifacts"
 
   ])
   role    = each.key
@@ -39,6 +38,13 @@ resource "google_project_iam_binding" "service_account_role" {
   members  = ["serviceAccount:${google_service_account.build_sa.email}"]
   depends_on = [ google_service_account.build_sa]
 }
+resource "google_project_iam_member" "cloud_run_role" {
+  project = var.project_id
+  role = "roles/run.invoker"  # Example role for basic deployment
+  member = "serviceAccount:${google_service_account.build_sa.email}"
+  depends_on = [google_service_account.build_sa]
+}
+
 
 resource "google_bigquery_dataset" "dataset" {
   dataset_id                  = "landing_dataset"
