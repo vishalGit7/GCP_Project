@@ -25,15 +25,15 @@ jobs:
           service: cr-gcs-to-bq  # Required
           source: ./script
 
-          platform: managed
-          region:  us-central1
-          minimum_scaling: 0
-          maximum_scaling: 2
-          concurrency: 85
-          timeout_seconds: 300
-          # Environment variables (optional)
-          env_vars: key=avlue
-          allow-unauthenticated: true
+          # platform: managed
+          # region:  us-central1
+          # minimum_scaling: 0
+          # maximum_scaling: 2
+          # concurrency: 85
+          # timeout_seconds: 300
+          # # Environment variables (optional)
+          # env_vars: key=avlue
+          # allow-unauthenticated: true
           # Secrets (optional, requires Secret Manager setup)
           # secrets: SECRET_NAME1=KEY1,SECRET_NAME2=KEY2
           # Labels (optional)
