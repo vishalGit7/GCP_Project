@@ -5,13 +5,13 @@ steps:
 # Build the container image
 - name: 'gcr.io/cloud-builders/docker'
   dir: 'script'
-  args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq2:$COMMIT_SHA', '.']
+  args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq:$COMMIT_SHA', '.']
 
 
 
 # Push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq2:$COMMIT_SHA']
+  args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq:$COMMIT_SHA']
 
 
 
@@ -23,7 +23,7 @@ steps:
     - 'deploy'
     - 'crgcstobq2'
     - '--image'
-    - 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq2:$COMMIT_SHA'
+    - 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq:$COMMIT_SHA'
     - '--region'
     - 'us-central1'
     - '--platform'
@@ -42,7 +42,7 @@ steps:
   #   ARCHIVE_DATA: " "
 
 images:
-- 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq2'
+- 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq'
 
 
 
