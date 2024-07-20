@@ -25,8 +25,8 @@ resource "google_service_account" "build_sa" {
   project = var.project_id
 }
 
-resource "google_service_account_iam_binding" "service_account_role" {
-    service_account_id = google_service_account.build_sa.name
+resource "google_project_iam_binding" "service_account_role" {
+   project = var.project_id
   for_each = toset([
         "roles/storage.admin",
         "roles/logging.logWriter",
