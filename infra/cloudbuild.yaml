@@ -37,8 +37,11 @@ steps:
     - $SERVICE_ACCOUNT_EMAIL
     - '--set-env-vars'
     - 'BUCKET_NAME=fileladingbucket_winged-app-429513-b8'
+    - '--set-env-vars'
     - 'DATASET_ID =winged-app-429513-b8.landing_dataset'
+    - '--set-env-vars'
     - 'TABLE_ID =winged-app-429513-b8.landing_dataset.landing_table'
+    - '--set-env-vars'
     - 'LANDING_DATA =landing_data/'
 
  
