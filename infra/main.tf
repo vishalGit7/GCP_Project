@@ -124,61 +124,6 @@ depends_on = [ google_bigquery_dataset.stg_dataset ]
 
 }
 
-resource "google_bigquery_dataset" "dataset" {
-  dataset_id                  = "st_dataset"
-  friendly_name               = "landing_dataset"
-  description                 = "This is a dataset which contains landing tables"
-  location                    = "us-central1"
-  default_table_expiration_ms = 3600000
- 
-   labels = {
-    env = "dev"
-  }
-
-}
-resource "google_bigquery_table" "landing_table" {
-  dataset_id = google_bigquery_dataset.dataset.dataset_id
-  table_id   = "landing_table"
-deletion_protection = false
-
-  time_partitioning {
-    type = "DAY"
-  }
-
-  labels = {
-    env = "default"
-  }
-
-  schema = <<EOF
-
-[
-  {
-    "name": "product_sku",
-    "mode": "REQUIRED",
-    "type": "STRING",
-    "description": "product sku value"
-  },
-  {
-    "name": "transaction_time",
-    "mode": "NULLABLE",
-    "type": "TIMESTAMP"
-  },
-  {
-    "name": "transaction_volume",
-    "mode": "NULLABLE",
-    "type": "INTEGER"
-  },
-  {
-    "name": "transaction_venue",
-    "mode": "NULLABLE",
-    "type": "STRING"
-  }
-]
-EOF
-
-depends_on = [ google_bigquery_dataset.dataset ]
-
-}
 
 resource "google_cloudbuild_trigger" "github_trigger" {
   name = "my-cloudbuild-trigger"
@@ -195,7 +140,6 @@ resource "google_cloudbuild_trigger" "github_trigger" {
   }
   service_account = google_service_account.build_sa.id
   depends_on = [ google_project_iam_binding.service_account_role,google_bigquery_dataset.stg_dataset,google_bigquery_table.stg_table,
-   google_bigquery_table.landing_table,google_bigquery_dataset.dataset,
                google_storage_bucket.gcs-landing-bucket,
                  google_storage_bucket_object.empty_folder,google_project_iam_binding.service_account_role,
                  google_project_iam_member.artifactrole,google_project_iam_member.cloud_run_role,
