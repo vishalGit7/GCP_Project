@@ -2,6 +2,7 @@
 
 This Repository Contains source code for below operations.
 
+
 ```
 This Repo follows below directory strcture 
 ├── .github
@@ -14,3 +15,9 @@ This Repo follows below directory strcture
   ├── python script files
 └── README.md
 ```
+
+## .github - 
+This folder contains CID/CD action files which are resposibile for creating and destroying infrastrcture.
+
+
+
