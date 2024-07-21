@@ -124,7 +124,18 @@ depends_on = [ google_bigquery_dataset.stg_dataset ]
 
 }
 
+resource "google_bigquery_dataset" "dataset" {
+  dataset_id                  = "st_dataset"
+  friendly_name               = "landing_dataset"
+  description                 = "This is a dataset which contains landing tables"
+  location                    = "us-central1"
+  default_table_expiration_ms = 3600000
+ 
+   labels = {
+    env = "dev"
+  }
 
+}
 resource "google_bigquery_table" "landing_table" {
   dataset_id = google_bigquery_dataset.dataset.dataset_id
   table_id   = "landing_table"
@@ -165,7 +176,7 @@ deletion_protection = false
 ]
 EOF
 
-depends_on = [ google_bigquery_dataset.stg_dataset ]
+depends_on = [ google_bigquery_dataset.dataset ]
 
 }
 
