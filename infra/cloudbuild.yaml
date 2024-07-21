@@ -35,12 +35,14 @@ steps:
     - '--allow-unauthenticated'
     - '--service-account'
     - $SERVICE_ACCOUNT_EMAIL
+    - '--set-env-vars'
+    -  'BUCKET_NAME=fileladingbucket_winged-app-429513-b8'
 
-  env:
-    - BUCKET_NAME = "fileladingbucket_winged-app-429513-b8"
-    - DATASET_ID = "winged-app-429513-b8.landing_dataset"
-    - TABLE_ID = "winged-app-429513-b8.landing_dataset.landing_table"
-    - LANDING_DATA = "landing_data/"
+  # env:
+  #   - BUCKET_NAME = "fileladingbucket_winged-app-429513-b8"
+  #   - DATASET_ID = "winged-app-429513-b8.landing_dataset"
+  #   - TABLE_ID = "winged-app-429513-b8.landing_dataset.landing_table"
+  #   - LANDING_DATA = "landing_data/"
 
 images:
 - 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq'
