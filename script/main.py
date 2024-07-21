@@ -48,7 +48,7 @@ def process_file():
         # Load data into BigQuery (use error handling)
                     job_config = bigquery.LoadJobConfig(
                         source_format = "CSV",
-                        field_delimiter = ";",
+                        field_delimiter = ",",
                         skip_leading_rows = 1,
                         write_disposition = "WRITE_APPEND",
                         schema = [
