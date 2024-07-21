@@ -30,6 +30,8 @@ Below is the architecture of the entire operation.
 ![FLowchart](/Flowchart.jpg)
 
 The GCP architecture goes as below.
+
+
 ![Architecture](/GCP_Arch.png)
 
 
