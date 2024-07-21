@@ -34,8 +34,10 @@ def process_file():
         print(34)
         # blobs = bucket.list_blobs(prefix = "winged-app-429513-b8_terraform/landing_data")
         for blob in blobs:
+            print(37)
             # Process only the first file (assuming you want to handle one file per request)
             if blob.name.endswith('.csv'):
+                print(40)
                 filename =  blob.name.split("/")[-1]
                 landing_folder = f"{landing_folder_prefix}/{filename}"
 
