@@ -128,6 +128,7 @@ depends_on = [ google_bigquery_dataset.stg_dataset ]
 resource "google_bigquery_table" "landing_table" {
   dataset_id = google_bigquery_dataset.dataset.dataset_id
   table_id   = "landing_table"
+deletion_protection = false
 
   time_partitioning {
     type = "DAY"
@@ -164,7 +165,7 @@ resource "google_bigquery_table" "landing_table" {
 ]
 EOF
 
-depends_on = [ google_bigquery_dataset.dataset ]
+depends_on = [ google_bigquery_dataset.stg_dataset ]
 
 }
 
