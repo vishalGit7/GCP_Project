@@ -41,6 +41,9 @@ On executing deploy_cr_gcs_to_bq.yaml to create the infrastructre , Below resour
 3)GCS bucket and landing folder
 4)Bigquery Dataset and table.
 
+![Infra](/Deploy_infra.PNG)
+
+![deploy](/terraform.PNG)
 
 
 
