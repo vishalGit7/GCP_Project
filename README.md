@@ -25,7 +25,7 @@ This folder contains source code for creating and destoring infrastrcture.
 ## script - 
 This folder contains python script and dockerfile related files for creating cloud build image.
 
-##Architcture
+## Architcture
 Below is the architecture of the entire operation.
 ![FLowchart](/Flowchart.jpg)
 
@@ -34,7 +34,7 @@ The GCP architecture goes as below.
 
 ![Architecture](/GCP_Arch.png)
 
-##Deployment 
+## Deployment 
 On executing deploy_cr_gcs_to_bq.yaml to create the infrastructre , Below resources gets created
 1)An IAM service account with required permissions.
 2)Cloud build trigger to create dockerimage and deploy the cloud run.
@@ -44,6 +44,18 @@ On executing deploy_cr_gcs_to_bq.yaml to create the infrastructre , Below resour
 ![Infra](/Deploy_infra.PNG)
 
 ![deploy](/terraform.PNG)
+
+## Testing 
+
+1)Load a new file to GCS landing bucket.
+![GCS](/GCS.PNG)
+
+2)The cloud gets triggered on event.
+![event](/trigger.PNG)
+
+3)File gets loaded to BQ.
+![Bq](/BQ.PNG)
+
 
 
 
