@@ -81,7 +81,7 @@ resource "google_bigquery_dataset" "stg_dataset" {
 }
 
 resource "google_bigquery_table" "stg_table" {
-  dataset_id = google_bigquery_dataset.stg_dataset
+  dataset_id = google_bigquery_dataset.stg_dataset.dataset_id
   table_id   = "landing_table"
   deletion_protection = false
 
