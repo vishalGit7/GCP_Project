@@ -6,7 +6,7 @@ from google.cloud import storage, bigquery
 # client = bigquery.Client(project='your-project-id')
 
 app = Flask(__name__)
-
+print("hello")
 @app.route("/", methods=['POST','GET'])
 def process_file():
     """Reads a CSV file from GCS, loads it into BigQuery, and returns a success message.
