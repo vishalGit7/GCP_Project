@@ -1,13 +1,13 @@
 # GCP_Project
 
-This Repository Contains source code for below operations.
-
+This Repository Contains source code data ingestion from GCS(GOOGLE CLOUD STORAGE) TO BIGQUERY.
+It uses CLOUD RUN SERVICE for loading the files.
 
 ```
 This Repo follows below directory strcture 
 ├── .github
 │   ├── workflows
-      ├──C/CD Yaml files
+      ├──CI/CD Yaml files
 ├── infra
 │   ├── cloudbuild files
 │   ├── terraform files
@@ -24,6 +24,8 @@ This folder contains source code for creating and destoring infrastrcture.
 
 ## script - 
 This folder contains python script and dockerfile related files for creating cloud build image.
+
+
 
 
 
