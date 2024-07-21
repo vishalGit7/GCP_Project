@@ -40,7 +40,7 @@ steps:
     - '--set-env-vars'
     - 'DATASET_ID =winged-app-429513-b8.stg_dataset'
     - '--set-env-vars'
-    - 'TABLE_ID =winged-app-429513-b8.landing_dataset.landing_table'
+    - 'TABLE_ID =winged-app-429513-b8.stg_dataset.landing_table'
     - '--set-env-vars'
     - 'LANDING_DATA =landing_data/'
 
