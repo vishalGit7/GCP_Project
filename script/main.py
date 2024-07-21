@@ -24,9 +24,6 @@ def process_file():
     table_id = os.environ.get('TABLE_ID')
     landing_folder_prefix = os.environ.get('LANDING_DATA')
 
-   
-
-
     try:
         # Download the file from GCS
         gcs_client = storage.Client()
@@ -42,8 +39,10 @@ def process_file():
 
                 print(f"The filename is {filename}")
                 try:
+
                     data = blob.download_as_string().decode('utf-8')
-                    uri = f"gs://{bucket.name}/landing_data/{filename}"              
+                    uri = f"gs://{bucket.name}/landing_data/{filename}"
+                    print(data)              
 
         # Load data into BigQuery (use error handling)
                     job_config = bigquery.LoadJobConfig(
