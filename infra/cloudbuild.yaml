@@ -10,7 +10,7 @@ steps:
 
 
 # Push the container image to Container Registry
-- name: 'gcr.io/cloud-builders/docker'
+- name: 'gcr.io/cloud-builders/dockerpush'
   args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/cr-gcs-to-bq/crgcstobq:$COMMIT_SHA']
 
 
