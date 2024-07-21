@@ -50,7 +50,19 @@ resource "google_project_iam_member" "artifactrole" {
   member = "serviceAccount:${google_service_account.build_sa.email}"
   depends_on = [google_service_account.build_sa]
 }
+resource "google_project_iam_member" "eventrole" {
+  project = var.project_id
+  role = "roles/eventarc.developer"  
+  member = "serviceAccount:${google_service_account.build_sa.email}"
+  depends_on = [google_service_account.build_sa]
+}
 
+resource "google_project_iam_member" "bqrole" {
+  project = var.project_id
+  role = "roles/bigquery.jobUser"  
+  member = "serviceAccount:${google_service_account.build_sa.email}"
+  depends_on = [google_service_account.build_sa]
+}
 resource "google_project_iam_member" "iamrole" {
   project = var.project_id
   role = "roles/iam.serviceAccountUser"  
