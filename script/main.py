@@ -6,9 +6,10 @@ from google.cloud import storage, bigquery
 # client = bigquery.Client(project='your-project-id')
 
 app = Flask(__name__)
-print("hello")
 @app.route("/", methods=['POST','GET'])
 def process_file():
+    print("hello")
+
     """Reads a CSV file from GCS, loads it into BigQuery, and returns a success message.
 
     Environment variables:
@@ -23,13 +24,14 @@ def process_file():
     dataset_id = os.environ.get('DATASET_ID')
     table_id = os.environ.get('TABLE_ID')
     landing_folder_prefix = os.environ.get('LANDING_DATA')
-
+    print(27)
     try:
         # Download the file from GCS
         gcs_client = storage.Client()
         bucket = gcs_client.get_bucket(bucket_name)
         bq_client = bigquery.Client(project='winged-app-429513-b8')
         blobs = bucket.list_blobs(prefix = landing_folder_prefix )
+        print(34)
         # blobs = bucket.list_blobs(prefix = "winged-app-429513-b8_terraform/landing_data")
         for blob in blobs:
             # Process only the first file (assuming you want to handle one file per request)
@@ -39,7 +41,7 @@ def process_file():
 
                 print(f"The filename is {filename}")
                 try:
-
+                    print(44)
                     data = blob.download_as_string().decode('utf-8')
                     uri = f"gs://{bucket.name}/landing_data/{filename}"
                     print(data)              
@@ -75,4 +77,4 @@ def process_file():
         return jsonify({'message': f"Error processing file: {str(e)}"}), 500
     
 if __name__ == "__main__":
-    app.run(debug = True)  # Run the Flask app for Cloud Run
+    process_file()
