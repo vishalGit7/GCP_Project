@@ -28,7 +28,7 @@ def process_file():
         gcs_client = storage.Client()
         bucket = gcs_client.get_bucket(bucket_name)
         bq_client = bigquery.Client(project='winged-app-429513-b8')
-        blobs = bucket.list_blobs()
+        blobs = bucket.list_blobs(prefix = landing_folder_prefix)
         print(34)
         # blobs = bucket.list_blobs(prefix = "winged-app-429513-b8_terraform/landing_data")
         for blob in blobs:
