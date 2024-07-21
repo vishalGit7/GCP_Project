@@ -14,7 +14,7 @@ resource "google_storage_bucket" "gcs-landing-bucket" {
 }
 
 resource "google_storage_bucket_object" "empty_folder" {
-  name   = "landing_data /" # folder for landing_files
+  name   = "landing_data/" # folder for landing_files
   content = " "
   bucket = google_storage_bucket.gcs-landing-bucket.name
   depends_on = [ google_storage_bucket.gcs-landing-bucket ]

@@ -34,6 +34,13 @@ The GCP architecture goes as below.
 
 ![Architecture](/GCP_Arch.png)
 
+##Deployment 
+On executing deploy_cr_gcs_to_bq.yaml to create the infrastructre , Below resources gets created
+1)An IAM service account with required permissions.
+2)Cloud build trigger to create dockerimage and deploy the cloud run.
+3)GCS bucket and landing folder
+4)Bigquery Dataset and table.
+
 
 
 
