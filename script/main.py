@@ -55,7 +55,7 @@ def process_file():
                         schema = [
                             {"name": "product_sku", "type": "STRING"},
                             {"name":"transaction_time" , "type": "TIMESTAMP"},
-                            {"name": "transaction_volume", "type": "INT"},
+                            {"name": "transaction_volume", "type": "INTEGER"},
                             {"name": "transaction_venue", "type": "STRING"},
                             
                         ]
