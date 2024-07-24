@@ -160,5 +160,5 @@ resource "google_cloudbuild_trigger" "github_trigger" {
 }
 
 output "cloudbuild_trigger_name" {
-  value = google_cloudbuild_trigger.my_trigger.name
+  value = google_cloudbuild_trigger.github_trigger.name
 }
