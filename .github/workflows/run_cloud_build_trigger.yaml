@@ -1,3 +1,8 @@
+name: 'Deploy Infrastructure with Terraform'
+
+on:
+  workflow_dispatch: 
+  
 jobs:
   job_id:
     # Add "id-token" with the intended permissions.
