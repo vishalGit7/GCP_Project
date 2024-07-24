@@ -16,7 +16,7 @@ jobs:
     - id: 'auth'
       uses: 'google-github-actions/auth@v2'
       with:
-        
+
       #   workload_identity_provider: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
       #   service_account: 'my-service-account@my-project.iam.gserviceaccount.com'
         credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
@@ -29,7 +29,30 @@ jobs:
       env:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
-    - name: 'Use gcloud CLI'
-      run: 'gcloud info'
+    - name: Set trigger details
+        run: |
+          TRIGGER_NAME= my-cloudbuild-trigger            
+          REGION=us-central1         
+          BRANCH_NAME=cr_nihilient   
+          echo "Trigger name: $TRIGGER_NAME"
+          echo "Region: $REGION"
+          echo "Branch name: $BRANCH_NAME"
+
+
+    - name: Run gcloud builds triggers run command
       env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+        REGION: ${{ env.REGION }}  # Pass region from previous step
+        BRANCH_NAME: ${{ env.BRANCH_NAME }}  # Pass branch name from previous step
+      run: |
+          gcloud builds triggers run "$TRIGGER_NAME" \
+            --region="$REGION" \
+            --branch="$BRANCH_NAME"
+
+    # - name: 'Use gcloud CLI'
+    #   run: |
+    #       gcloud builds triggers run ${TRIGGER_NAME \
+    #      --region=REGION \
+    #      --branch=BRANCH_NAME \
+    #      --substitutions=SUBSTITUTION_VAR=SUBSTITUTION_VALUE
+    #   env:
+    #       GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
