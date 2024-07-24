@@ -158,3 +158,7 @@ resource "google_cloudbuild_trigger" "github_trigger" {
                  google_service_account.build_sa ]
 
 }
+
+output "cloudbuild_trigger_name" {
+  value = google_cloudbuild_trigger.my_trigger.name
+}
