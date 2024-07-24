@@ -57,6 +57,11 @@ On executing deploy_cr_gcs_to_bq.yaml to create the infrastructre , Below resour
 ![Bq](/BQ.PNG)
 
 
+## Reference Links -
+
+https://cloud.google.com/build/docs/deploying-builds/deploy-cloud-run
+
+
 
 
 
