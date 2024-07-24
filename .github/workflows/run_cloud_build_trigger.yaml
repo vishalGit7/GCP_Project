@@ -15,11 +15,12 @@ jobs:
     steps:
     - id: 'auth'
       uses: 'google-github-actions/auth@v2'
-      # with:
+      with:
+        
       #   workload_identity_provider: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
       #   service_account: 'my-service-account@my-project.iam.gserviceaccount.com'
-      env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+        credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
+
 
     - name: 'Set up Cloud SDK'
       uses: 'google-github-actions/setup-gcloud@v2'
