@@ -4,11 +4,13 @@ on:
   workflow_dispatch: 
 
 jobs:
-  job_id:
-    # Add "id-token" with the intended permissions.
-    permissions:
-      contents: 'read'
-      id-token: 'write'
+  deploy:
+    name: 'Deploy Infrastructure'
+    runs-on: ubuntu-latest  # Run the workflow on an Ubuntu runner
+
+    defaults:
+      run:
+        shell: bash  # Use the Bash shell
 
     steps:
     - id: 'auth'
