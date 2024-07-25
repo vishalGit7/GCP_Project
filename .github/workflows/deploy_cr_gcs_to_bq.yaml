@@ -1,11 +1,11 @@
-name: 'Run Cloud Build Trigger Manually'
+name: 'Deploy Infrastructure with Terraform'
 
 on:
   workflow_dispatch: 
 
 jobs:
   deploy:
-    name: 'Trigger Cloud Build'
+    name: 'Deploy Infrastructure'
     runs-on: ubuntu-latest  # Run the workflow on an Ubuntu runner
 
     defaults:
