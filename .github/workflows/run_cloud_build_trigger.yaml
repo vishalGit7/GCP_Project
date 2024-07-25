@@ -31,7 +31,7 @@ jobs:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
     - name: Set trigger details
-        run: |
+      run: |
           TRIGGER_NAME= my-cloudbuild-trigger            
           REGION=us-central1         
           BRANCH_NAME=cr_nihilient   
