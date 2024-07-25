@@ -1,4 +1,4 @@
-name: 'Deploy Infrastructure with Terraform'
+name: 'Run CLoud Build Trigger for New version of Cloud Run'
 
 on:
   workflow_dispatch: 
