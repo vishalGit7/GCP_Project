@@ -66,9 +66,9 @@ jobs:
         REGION: ${{ env.REGION }}  # Pass region from previous step
         BRANCH_NAME: ${{ env.BRANCH_NAME }}  # Pass branch name from previous step
       run: |
-          gcloud builds triggers run "${{steps.Set_Variable_Values.trigger_name}}" \
-            --region="${{steps.Set_Variable_Values.region}}" \
-            --branch="${{steps.Set_Variable_Values.branch}}"
+          gcloud builds triggers run "${steps.Set_Variable_Values.trigger_name}" \
+            --region="${steps.Set_Variable_Values.region}" \
+            --branch="${steps.Set_Variable_Values.branch}"
 
     # - name: 'Use gcloud CLI'
     #   run: |
