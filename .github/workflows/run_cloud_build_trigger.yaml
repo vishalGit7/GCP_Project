@@ -4,27 +4,6 @@ on:
   workflow_dispatch: 
 
 jobs:
-  build:
-    name: Assign Variable Values
-    runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        shell: bash
-    
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set Variable Values
-        run: | 
-          TRIGGER_NAME=my-cloudbuild-trigger
-          REGION=us-central1
-          BRANCH_NAME=cr_nihilient
-          echo "::set-output name=trigger_name::$TRIGGER_NAME"
-          echo "::set-output name=region::$REGION"
-          echo "::set-output name=branch::$BRANCH_NAME"
-
-
-
   deploy:
     name: 'Trigger Cloud Build'
     runs-on: ubuntu-latest  # Run the workflow on an Ubuntu runner
@@ -48,33 +27,11 @@ jobs:
       uses: 'google-github-actions/setup-gcloud@v2'
       with:
         version: '>= 363.0.0'
-      env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
-    # - name: Set trigger details
-    #   run: |
-    #       TRIGGER_NAME= my-cloudbuild-trigger            
-    #       REGION=us-central1         
-    #       BRANCH_NAME=cr_nihilient   
-    #       echo "Trigger name: $TRIGGER_NAME"
-    #       echo "Region: $REGION"
-    #       echo "Branch name: $BRANCH_NAME"
 
 
     - name: Run gcloud builds triggers run command
-      env:
-        REGION: ${{ env.REGION }}  # Pass region from previous step
-        BRANCH_NAME: ${{ env.BRANCH_NAME }}  # Pass branch name from previous step
       run: |
-          gcloud builds triggers run "${build.steps.Set_Variable_Values.trigger_name}" \
-            --region="${build.steps.Set_Variable_Values.region}" \
-            --branch="${build.steps.Set_Variable_Values.branch}"
-
-    # - name: 'Use gcloud CLI'
-    #   run: |
-    #       gcloud builds triggers run ${TRIGGER_NAME \
-    #      --region=REGION \
-    #      --branch=BRANCH_NAME \
-    #      --substitutions=SUBSTITUTION_VAR=SUBSTITUTION_VALUE
-    #   env:
-    #       GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          gcloud builds triggers run ${{ secrets.cloud_build_trigger_name }} \
+            --region=${{ secrets.cloud_build_region }} \
+            --branch=${{ secrets.cloud_build_branch_name }}
