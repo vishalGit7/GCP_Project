@@ -1,3 +1,5 @@
+#Run this trigger only when new version of cloud run needs to be deployed
+
 name: 'Run CLoud Build Trigger for New version of Cloud Run'
 
 on:
