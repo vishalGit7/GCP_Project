@@ -110,7 +110,7 @@ resource "google_bigquery_table" "stg_table" {
 [
   {
     "name": "product_sku",
-    "mode": "REQUIRED",
+    "mode": "NULLABLE",
     "type": "STRING",
     "description": "product sku value"
   },
