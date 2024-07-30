@@ -52,13 +52,13 @@ def process_file():
                         field_delimiter = ",",
                         skip_leading_rows = 1,
                         write_disposition = "WRITE_APPEND",
-                        schema = [
-                            {"name": "product_sku", "type": "STRING"},
-                            {"name":"transaction_time" , "type": "TIMESTAMP"},
-                            {"name": "transaction_volume", "type": "INTEGER"},
-                            {"name": "transaction_venue", "type": "STRING"},
+                        # schema = [
+                        #     {"name": "product_sku", "type": "STRING"},
+                        #     {"name":"transaction_time" , "type": "TIMESTAMP"},
+                        #     {"name": "transaction_volume", "type": "INTEGER"},
+                        #     {"name": "transaction_venue", "type": "STRING"},
                             
-                        ]
+                        # ]
                         
                     )
                     load_job = bq_client.load_table_from_uri(uri, table_id, job_config =job_config)  # Make an API request.
